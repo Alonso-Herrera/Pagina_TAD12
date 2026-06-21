@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TAD 12 · Mercado Laboral Colombia</title>
   <meta name="description" content="Plataforma de análisis y visualización del mercado laboral colombiano 2010–2025. Indicadores de empleo, género y tendencias con dashboards interactivos." />
-  <meta property="og:title" content="TAD 12 · Mercado Laboral Colombia" />
-  <meta property="og:description" content="Análisis del mercado laboral colombiano 2010–2025 con dashboards interactivos y Power BI." />
-  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
@@ -16,9 +13,6 @@
 </head>
 <body>
 
-<!-- ============================================
-     HEADER
-     ============================================ -->
 <header class="header">
   <div class="container">
     <div class="header-content">
@@ -33,8 +27,7 @@
         <a class="nav-link" data-page="genero" href="#">Género</a>
         <a class="nav-link" data-page="tendencias" href="#">Tendencias</a>
         <a class="nav-link" data-page="powerbi" href="#">Power BI</a>
-        <a class="nav-link" data-page="descargables" href="#">Descargas</a>
-        <a class="nav-link" data-page="colaboradores" href="#">Equipo</a>
+        <a class="nav-link" data-page="equipo" href="#">Nuestro Equipo</a>
       </nav>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
     </div>
@@ -45,42 +38,29 @@
       <a class="nav-link-mobile" data-page="genero" href="#">Género</a>
       <a class="nav-link-mobile" data-page="tendencias" href="#">Tendencias</a>
       <a class="nav-link-mobile" data-page="powerbi" href="#">Power BI</a>
-      <a class="nav-link-mobile" data-page="descargables" href="#">Descargas</a>
-      <a class="nav-link-mobile" data-page="colaboradores" href="#">Equipo</a>
+      <a class="nav-link-mobile" data-page="equipo" href="#">Nuestro Equipo</a>
     </nav>
   </div>
 </header>
 
-<!-- Flechas de navegación lateral -->
 <div class="page-navigation-side" aria-hidden="true">
   <button class="nav-arrow-side" id="prevBtnSide" onclick="navigatePrev()" title="Página anterior">&#8592;</button>
   <button class="nav-arrow-side" id="nextBtnSide" onclick="navigateNext()" title="Página siguiente">&#8594;</button>
 </div>
 
-<!-- ============================================
-     PÁGINA 1: INICIO
-     ============================================ -->
+<!-- PÁGINA 1: INICIO -->
 <main id="page-inicio" class="page">
-  <!-- Hero -->
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge">
-          <span>📊</span>
-          <span>Análisis de Datos · TAD 12 · 2025</span>
-        </div>
+        <div class="hero-badge">Análisis de Datos · TAD 12 · 2025</div>
         <h1 class="hero-title">Mercado Laboral<br>Colombiano</h1>
         <p class="hero-subtitle">
-          Plataforma de visualización y análisis de indicadores laborales nacionales.
-          Explora 15 años de datos desagregados por género, con dashboards interactivos y reportes Power BI.
+          Plataforma técnica de visualización y análisis de indicadores laborales nacionales basados en datos del DANE 2010–2025.
         </p>
         <div class="hero-buttons">
-          <button class="btn btn-primary" onclick="navigateTo('page-exploratorio')">
-            🔍 Explorar datos
-          </button>
-          <button class="btn btn-secondary" onclick="navigateTo('page-powerbi')">
-            📈 Ver Power BI
-          </button>
+          <button class="btn btn-primary" onclick="navigateTo('page-exploratorio')">Explorar datos</button>
+          <button class="btn btn-secondary" onclick="navigateTo('page-powerbi')">Ver Power BI</button>
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
@@ -92,10 +72,6 @@
             <div class="hero-stat-label">Años de cobertura</div>
           </div>
           <div class="hero-stat">
-            <div class="hero-stat-value">16</div>
-            <div class="hero-stat-label">Indicadores laborales</div>
-          </div>
-          <div class="hero-stat">
             <div class="hero-stat-value">24.3pp</div>
             <div class="hero-stat-label">Brecha de género</div>
           </div>
@@ -104,321 +80,121 @@
     </div>
   </section>
 
-  <!-- Resumen de secciones -->
-  <section class="section">
+  <!-- SECCIÓN MISIÓN Y VISIÓN -->
+  <section class="section section-alt no-padding-bottom">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">¿Qué encontrarás aquí?</h2>
-        <p class="section-subtitle">Navega por las diferentes secciones de la plataforma</p>
-      </div>
-      <div class="stats-grid">
-        <div class="card card-accent-navy" style="cursor:pointer" onclick="navigateTo('page-exploratorio')">
-          <div style="font-size:2rem;margin-bottom:.75rem">🔍</div>
-          <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Análisis Exploratorio</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary)">Descripción del dataset, variables principales y estructura de los datos.</p>
+      <div class="mission-vision-grid">
+        <div class="card card-white">
+          <h2 class="section-title-sm">Misión</h2>
+          <p class="content-text">
+            Proveer una herramienta analítica avanzada que democratice el acceso a la información laboral en Colombia, transformando datos complejos del DANE en visualizaciones interactivas que faciliten la toma de decisiones informadas y el entendimiento de las dinámicas socioeconómicas del país.
+          </p>
         </div>
-        <div class="card card-accent-pink" style="cursor:pointer" onclick="navigateTo('page-indicadores')">
-          <div style="font-size:2rem;margin-bottom:.75rem">📉</div>
-          <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Indicadores Laborales</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary)">TGP, TO, TD y TS con gráficos interactivos y filtros por año.</p>
-        </div>
-        <div class="card card-accent-teal" style="cursor:pointer" onclick="navigateTo('page-genero')">
-          <div style="font-size:2rem;margin-bottom:.75rem">⚥</div>
-          <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Análisis de Género</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary)">Comparativa femenino vs masculino y evolución de la brecha laboral.</p>
-        </div>
-        <div class="card card-accent-amber" style="cursor:pointer" onclick="navigateTo('page-tendencias')">
-          <div style="font-size:2rem;margin-bottom:.75rem">📈</div>
-          <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Tendencias</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary)">Evolución histórica, impacto COVID-19 y proyecciones 2010–2025.</p>
-        </div>
-        <div class="card" style="cursor:pointer;border-left:4px solid #7C3AED" onclick="navigateTo('page-powerbi')">
-          <div style="font-size:2rem;margin-bottom:.75rem">🟡</div>
-          <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Dashboard Power BI</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary)">Reporte interactivo completo con todos los dashboards del análisis.</p>
-        </div>
-        <div class="card" style="cursor:pointer;border-left:4px solid #059669" onclick="navigateTo('page-descargas')">
-          <div style="font-size:2rem;margin-bottom:.75rem">⬇️</div>
-          <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Descargables</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary)">Datasets originales, reportes PDF y recursos del proyecto.</p>
+        <div class="card card-white">
+          <h2 class="section-title-sm">Visión</h2>
+          <p class="content-text">
+            Consolidarnos como el portal académico de referencia en el análisis de indicadores laborales en Colombia, destacando por nuestra precisión técnica, profundidad en el análisis de género y la integración de tecnologías de vanguardia para la visualización de datos.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
+  <section class="section">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h3>TAD 12</h3>
-          <p>Plataforma de análisis del mercado laboral colombiano. Datos del DANE 2010–2025.</p>
+      <div class="section-header">
+        <h2 class="section-title">Estructura del Proyecto</h2>
+        <p class="section-subtitle">Módulos especializados de análisis</p>
+      </div>
+      <div class="stats-grid">
+        <div class="card card-accent-navy" onclick="navigateTo('page-exploratorio')">
+          <h3 class="card-title">Análisis Exploratorio</h3>
+          <p class="card-desc">Descripción técnica del dataset y variables principales.</p>
         </div>
-        <div class="footer-links">
-          <h4>Secciones</h4>
-          <ul>
-            <li><a href="#" onclick="navigateTo('page-exploratorio')">Análisis Exploratorio</a></li>
-            <li><a href="#" onclick="navigateTo('page-indicadores')">Indicadores</a></li>
-            <li><a href="#" onclick="navigateTo('page-genero')">Género</a></li>
-            <li><a href="#" onclick="navigateTo('page-tendencias')">Tendencias</a></li>
-          </ul>
+        <div class="card card-accent-pink" onclick="navigateTo('page-indicadores')">
+          <h3 class="card-title">Indicadores Laborales</h3>
+          <p class="card-desc">Evolución de TGP, TO, TD y TS con gráficos interactivos.</p>
         </div>
-        <div class="footer-links">
-          <h4>Recursos</h4>
-          <ul>
-            <li><a href="#" onclick="navigateTo('page-powerbi')">Dashboard Power BI</a></li>
-            <li><a href="#" onclick="navigateTo('page-descargas')">Descargas</a></li>
-            <li><a href="#" onclick="navigateTo('page-colaboradores')">Equipo</a></li>
-          </ul>
+        <div class="card card-accent-teal" onclick="navigateTo('page-genero')">
+          <h3 class="card-title">Análisis de Género</h3>
+          <p class="card-desc">Comparativa estructural y evolución de la brecha laboral.</p>
+        </div>
+        <div class="card card-accent-amber" onclick="navigateTo('page-tendencias')">
+          <h3 class="card-title">Tendencias</h3>
+          <p class="card-desc">Hitos históricos e impacto de eventos macroeconómicos.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
       <div class="footer-bottom">
-        <span>© 2025 TAD 12 · Todos los derechos reservados</span>
-        <span>Datos: DANE Colombia · Análisis: Grupo TAD 12</span>
+        <span>© 2025 TAD 12 · Análisis de Datos</span>
+        <span>Fuente: DANE Colombia</span>
       </div>
     </div>
   </footer>
 </main>
 
-<!-- ============================================
-     PÁGINA 2: ANÁLISIS EXPLORATORIO
-     ============================================ -->
+<!-- PÁGINA 2: ANÁLISIS EXPLORATORIO -->
 <main id="page-exploratorio" class="page">
   <div class="page-header">
     <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon">🔍</div>
-        <div>
-          <h1>Análisis Exploratorio</h1>
-          <p>Descripción del dataset, variables y estructura de los datos del mercado laboral colombiano</p>
-        </div>
-      </div>
+      <h1>Análisis Exploratorio</h1>
+      <p>Descripción técnica del dataset y estructura de los datos</p>
     </div>
   </div>
-
-  <div class="section">
+  <section class="section">
     <div class="container">
       <div class="content-grid">
-        <!-- Sidebar -->
         <aside class="sidebar">
           <div class="sidebar-box">
-            <div class="sidebar-title">Contenido</div>
             <nav class="sidebar-nav">
-              <a class="sidebar-link" href="#descripcion">📋 Descripción</a>
-              <a class="sidebar-link" href="#variables">📌 Variables</a>
-              <a class="sidebar-link" href="#cobertura">📅 Cobertura temporal</a>
-              <a class="sidebar-link" href="#estructura">🗂️ Estructura</a>
-              <a class="sidebar-link" href="#hallazgos">💡 Hallazgos</a>
+              <a class="sidebar-link" href="#descripcion">Descripción</a>
+              <a class="sidebar-link" href="#variables">Variables</a>
+              <a class="sidebar-link" href="#estructura">Estructura</a>
             </nav>
           </div>
-          <div class="sidebar-box">
-            <div class="sidebar-title">Resumen rápido</div>
-            <div style="display:flex;flex-direction:column;gap:.75rem">
-              <div>
-                <div style="font-size:.75rem;color:var(--text-secondary)">Total registros</div>
-                <div style="font-size:1.3rem;font-weight:800;color:var(--navy)">576</div>
-              </div>
-              <div>
-                <div style="font-size:.75rem;color:var(--text-secondary)">Período</div>
-                <div style="font-size:1.1rem;font-weight:700;color:var(--navy)">2010–2025</div>
-              </div>
-              <div>
-                <div style="font-size:.75rem;color:var(--text-secondary)">Frecuencia</div>
-                <div style="font-size:1.1rem;font-weight:700;color:var(--navy)">Mensual</div>
-              </div>
-            </div>
-          </div>
         </aside>
-
-        <!-- Contenido principal -->
         <div class="content-main">
-          <div class="content-section" id="descripcion">
+          <div id="descripcion" class="content-section">
             <h2 class="content-title">Descripción del Dataset</h2>
-            <p class="content-text">
-              El dataset contiene información mensual sobre indicadores de población, empleo y género a nivel nacional colombiano.
-              Los datos abarcan un período de <strong>15 años (2010–2025)</strong> y están organizados en dos hojas principales
-              con desagregación por género y totales nacionales.
-            </p>
-            <div class="stats-grid" style="margin-top:1.25rem">
-              <div class="stat-card navy">
-                <div class="stat-card-icon">📊</div>
-                <h3>384</h3>
-                <p>Registros por género</p>
-              </div>
-              <div class="stat-card pink">
-                <div class="stat-card-icon">📋</div>
-                <h3>192</h3>
-                <p>Registros totales</p>
-              </div>
-              <div class="stat-card teal">
-                <div class="stat-card-icon">📅</div>
-                <h3>180</h3>
-                <p>Meses de cobertura</p>
-              </div>
-              <div class="stat-card amber">
-                <div class="stat-card-icon">📐</div>
-                <h3>19</h3>
-                <p>Columnas por hoja</p>
-              </div>
+            <p class="content-text">El dataset contiene información mensual sobre indicadores de población y empleo a nivel nacional, abarcando el período 2010–2025.</p>
+            <div class="stats-grid">
+              <div class="stat-card navy"><h3>576</h3><p>Registros totales</p></div>
+              <div class="stat-card teal"><h3>180</h3><p>Meses de cobertura</p></div>
             </div>
           </div>
-
-          <div class="content-section" id="variables">
+          <div id="variables" class="content-section">
             <h2 class="content-title">Variables Principales</h2>
-            <p class="content-text">El dataset incluye cuatro indicadores laborales fundamentales, cada uno con desagregación por género:</p>
             <div class="variables-grid">
-              <div class="variable-card">
-                <div class="variable-card-icon">👥</div>
-                <h4>Tasa Global de Participación (TGP)</h4>
-                <p>Proporción de la fuerza de trabajo respecto a la población en edad de trabajar.</p>
-                <div class="var-value">~62%</div>
-              </div>
-              <div class="variable-card" style="border-left-color:var(--accent)">
-                <div class="variable-card-icon">💼</div>
-                <h4>Tasa de Ocupación (TO)</h4>
-                <p>Proporción de la población ocupada respecto a la población en edad de trabajar.</p>
-                <div class="var-value" style="color:var(--accent)">~58%</div>
-              </div>
-              <div class="variable-card" style="border-left-color:var(--teal)">
-                <div class="variable-card-icon">🔍</div>
-                <h4>Tasa de Desocupación (TD)</h4>
-                <p>Proporción de desocupados respecto a la fuerza de trabajo activa.</p>
-                <div class="var-value" style="color:var(--teal)">~10%</div>
-              </div>
-              <div class="variable-card" style="border-left-color:var(--amber)">
-                <div class="variable-card-icon">⏱️</div>
-                <h4>Tasa de Subocupación (TS)</h4>
-                <p>Proporción de población subocupada respecto a la fuerza de trabajo.</p>
-                <div class="var-value" style="color:var(--amber)">~8%</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content-section" id="cobertura">
-            <h2 class="content-title">Cobertura Temporal</h2>
-            <p class="content-text">Los datos se recopilan mensualmente, permitiendo análisis de tendencias a corto y largo plazo, así como la identificación de patrones estacionales en el mercado laboral colombiano.</p>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:1.25rem">
-              <div style="background:var(--navy);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Período inicial</div>
-                <div style="font-size:1.4rem;font-weight:800">Ene 2010</div>
-              </div>
-              <div style="background:var(--navy);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Período final</div>
-                <div style="font-size:1.4rem;font-weight:800">Dic 2025</div>
-              </div>
-              <div style="background:var(--accent);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Total meses</div>
-                <div style="font-size:1.4rem;font-weight:800">180 meses</div>
-              </div>
-              <div style="background:var(--teal);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Desagregación</div>
-                <div style="font-size:1.1rem;font-weight:800">F / M / Total</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content-section" id="estructura">
-            <h2 class="content-title">Estructura del Dataset</h2>
-            <div class="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Campo</th>
-                    <th>Tipo</th>
-                    <th>Descripción</th>
-                    <th>Ejemplo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><strong>Año</strong></td><td><span class="badge badge-navy">Numérico</span></td><td>Año del registro</td><td>2023</td></tr>
-                  <tr><td><strong>Mes</strong></td><td><span class="badge badge-teal">Texto</span></td><td>Mes del registro</td><td>ENERO</td></tr>
-                  <tr><td><strong>Género</strong></td><td><span class="badge badge-pink">Categórico</span></td><td>Desagregación por género</td><td>FEMENINO</td></tr>
-                  <tr><td><strong>TGP</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa Global de Participación</td><td>54.2</td></tr>
-                  <tr><td><strong>TO</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa de Ocupación</td><td>48.7</td></tr>
-                  <tr><td><strong>TD</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa de Desocupación</td><td>10.1</td></tr>
-                  <tr><td><strong>TS</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa de Subocupación</td><td>7.8</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="content-section" id="hallazgos">
-            <h2 class="content-title">Hallazgos Preliminares</h2>
-            <div class="findings-box">
-              <div class="findings-title">💡 Principales hallazgos del análisis exploratorio</div>
-              <ul class="findings-list">
-                <li>Brecha significativa en tasas de ocupación entre géneros de <strong>24.3 puntos porcentuales</strong> en promedio.</li>
-                <li>Tendencia general de mejora en ocupación desde 2010 hasta 2019, con recuperación post-pandemia hacia 2022.</li>
-                <li>Caída histórica en 2020 por COVID-19: la tasa de ocupación femenina bajó a <strong>38.07%</strong>.</li>
-                <li>Patrones estacionales evidentes: los meses de enero y diciembre presentan variaciones consistentes.</li>
-                <li>La tasa de desocupación femenina supera consistentemente a la masculina en todos los períodos analizados.</li>
-              </ul>
+              <div class="variable-card"><h4>TGP</h4><p>Tasa Global de Participación</p></div>
+              <div class="variable-card"><h4>TO</h4><p>Tasa de Ocupación</p></div>
+              <div class="variable-card"><h4>TD</h4><p>Tasa de Desocupación</p></div>
+              <div class="variable-card"><h4>TS</h4><p>Tasa de Subocupación</p></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </main>
 
-<!-- ============================================
-     PÁGINA 3: INDICADORES
-     ============================================ -->
+<!-- PÁGINA 3: INDICADORES -->
 <main id="page-indicadores" class="page">
   <div class="page-header">
     <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon">📉</div>
-        <div>
-          <h1>Indicadores Laborales</h1>
-          <p>Evolución de TGP, TO, TD y TS con gráficos interactivos y filtros dinámicos</p>
-        </div>
-      </div>
+      <h1>Indicadores Laborales</h1>
+      <p>Evolución de métricas nacionales 2010–2025</p>
     </div>
   </div>
-
   <section class="section">
     <div class="container">
-      <!-- KPIs 2025 -->
-      <div class="section-header">
-        <h2 class="section-title">Valores 2025 (último año disponible)</h2>
-        <p class="section-subtitle">Indicadores nacionales consolidados</p>
-      </div>
-      <div class="stats-grid" style="margin-bottom:3rem">
-        <div class="stat-card navy">
-          <div class="stat-card-icon">👥</div>
-          <h3>62.6%</h3>
-          <p>Tasa Global de Participación</p>
-          <div class="stat-card-trend trend-up">↑ +0.8pp vs 2024</div>
-        </div>
-        <div class="stat-card pink">
-          <div class="stat-card-icon">💼</div>
-          <h3>59.1%</h3>
-          <p>Tasa de Ocupación</p>
-          <div class="stat-card-trend trend-up">↑ +1.0pp vs 2024</div>
-        </div>
-        <div class="stat-card teal">
-          <div class="stat-card-icon">🔍</div>
-          <h3>5.6%</h3>
-          <p>Tasa de Desocupación</p>
-          <div class="stat-card-trend trend-up">↓ -0.4pp vs 2024</div>
-        </div>
-        <div class="stat-card amber">
-          <div class="stat-card-icon">⏱️</div>
-          <h3>7.2%</h3>
-          <p>Tasa de Subocupación</p>
-          <div class="stat-card-trend trend-up">↓ -0.3pp vs 2024</div>
-        </div>
-      </div>
-
-      <!-- Gráfico principal: Ocupación por género -->
       <div class="charts-grid">
-        <div class="chart-container" style="grid-column:1/-1">
+        <div class="chart-container full-width">
           <div class="chart-header">
-            <div>
-              <div class="chart-title">Evolución de la Tasa de Ocupación por Género (2010–2025)</div>
-              <div class="chart-subtitle">Porcentaje de población ocupada respecto a la PET</div>
-            </div>
+            <h3 class="chart-title">Tasa de Ocupación por Género</h3>
             <div class="chart-filters">
               <button class="filter-btn active" onclick="filterChartByGender('todos',this)">Todos</button>
               <button class="filter-btn" onclick="filterChartByGender('femenino',this)">Femenino</button>
@@ -427,558 +203,193 @@
           </div>
           <canvas id="ocupacionChart" height="100"></canvas>
         </div>
-
         <div class="chart-container">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">Tasa de Desocupación (2010–2025)</div>
-              <div class="chart-subtitle">Evolución anual nacional</div>
-            </div>
-          </div>
+          <h3 class="chart-title">Tasa de Desocupación</h3>
           <canvas id="desocupacionChart" height="160"></canvas>
         </div>
-
         <div class="chart-container">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">TGP vs TO — Comparativa (2025)</div>
-              <div class="chart-subtitle">Por género — último año</div>
-            </div>
-          </div>
+          <h3 class="chart-title">Comparativa TGP vs TO (2025)</h3>
           <canvas id="comparativaChart" height="160"></canvas>
         </div>
       </div>
-
-      <!-- Tabla de datos -->
-      <div style="margin-top:2.5rem">
-        <h2 class="section-title" style="text-align:left;margin-bottom:1rem">Datos históricos consolidados</h2>
-        <div class="table-wrapper">
-          <table id="dataTable">
-            <thead>
-              <tr>
-                <th>Año</th>
-                <th>TO Femenina</th>
-                <th>TO Masculina</th>
-                <th>Brecha</th>
-                <th>TD Nacional</th>
-                <th>Tendencia</th>
-              </tr>
-            </thead>
-            <tbody id="dataTableBody"></tbody>
-          </table>
-        </div>
-      </div>
     </div>
   </section>
 </main>
 
-<!-- ============================================
-     PÁGINA 4: GÉNERO
-     ============================================ -->
+<!-- PÁGINA 4: GÉNERO -->
 <main id="page-genero" class="page">
   <div class="page-header">
     <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon">⚥</div>
-        <div>
-          <h1>Análisis de Género</h1>
-          <p>Comparativa de indicadores laborales entre mujeres y hombres en Colombia</p>
-        </div>
-      </div>
+      <h1>Análisis de Género</h1>
+      <p>Estudio de brechas estructurales en el mercado laboral</p>
     </div>
   </div>
-
   <section class="section">
     <div class="container">
-      <!-- Comparativa principal -->
-      <div class="section-header">
-        <h2 class="section-title">Tasa de Ocupación promedio (2010–2025)</h2>
-        <p class="section-subtitle">Diferencia estructural entre géneros en el mercado laboral</p>
-      </div>
-
       <div class="gender-comparison">
         <div class="gender-card female">
-          <div class="gender-card-icon">♀</div>
           <h3>Ocupación Femenina</h3>
           <div class="big-num">45.4%</div>
-          <div class="sub">Promedio 2010–2025</div>
+          <p>Promedio histórico</p>
         </div>
         <div class="gender-card male">
-          <div class="gender-card-icon">♂</div>
           <h3>Ocupación Masculina</h3>
           <div class="big-num">71.2%</div>
-          <div class="sub">Promedio 2010–2025</div>
+          <p>Promedio histórico</p>
         </div>
       </div>
-
-      <div class="gap-indicator">
-        <h3>Brecha de género en ocupación</h3>
-        <div class="gap-num">25.8 pp</div>
-        <p>Por cada 100 hombres ocupados, solo 64 mujeres tienen empleo formal</p>
-      </div>
-
-      <!-- Gráficos de género -->
       <div class="charts-grid">
         <div class="chart-container">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">Brecha de Ocupación por Año</div>
-              <div class="chart-subtitle">Diferencia en puntos porcentuales</div>
-            </div>
-          </div>
+          <h3 class="chart-title">Brecha de Ocupación (pp)</h3>
           <canvas id="brechaChart" height="180"></canvas>
         </div>
-
         <div class="chart-container">
-          <div class="chart-header">
-            <div>
-              <div class="chart-title">Tasa de Desocupación por Género</div>
-              <div class="chart-subtitle">Evolución 2010–2025</div>
-            </div>
-          </div>
+          <h3 class="chart-title">Desocupación por Género</h3>
           <canvas id="desocupacionGeneroChart" height="180"></canvas>
-        </div>
-      </div>
-
-      <!-- Análisis narrativo -->
-      <div style="margin-top:2.5rem">
-        <div class="content-grid">
-          <div></div>
-          <div>
-            <div class="info-box" style="margin-bottom:1.25rem">
-              <strong>Contexto:</strong> La brecha de género en el mercado laboral colombiano es una de las más amplias de América Latina,
-              con diferencias estructurales que persisten a lo largo de los 15 años analizados.
-            </div>
-            <div class="findings-box">
-              <div class="findings-title">⚥ Hallazgos clave del análisis de género</div>
-              <ul class="findings-list">
-                <li>La tasa de ocupación masculina supera a la femenina en <strong>todos los años</strong> del período analizado.</li>
-                <li>La pandemia de 2020 afectó desproporcionalmente a las mujeres: su TO cayó a <strong>38.07%</strong> vs 63.79% masculina.</li>
-                <li>La recuperación post-pandemia fue más lenta para las mujeres, alcanzando 44.36% en 2022 vs 69.63% masculina.</li>
-                <li>La tasa de desocupación femenina es consistentemente <strong>3–5 pp mayor</strong> que la masculina.</li>
-                <li>En 2025, la brecha se mantiene en ~24.7 pp, mostrando poca reducción estructural en 15 años.</li>
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<!-- ============================================
-     PÁGINA 5: TENDENCIAS
-     ============================================ -->
+<!-- PÁGINA 5: TENDENCIAS -->
 <main id="page-tendencias" class="page">
   <div class="page-header">
     <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon">📈</div>
-        <div>
-          <h1>Tendencias Históricas</h1>
-          <p>Evolución del mercado laboral colombiano 2010–2025 y hitos clave</p>
-        </div>
-      </div>
+      <h1>Tendencias Históricas</h1>
+      <p>Análisis de hitos y evolución temporal</p>
     </div>
   </div>
-
   <section class="section">
     <div class="container">
-      <!-- Hitos temporales -->
-      <div class="section-header">
-        <h2 class="section-title">Hitos del período 2010–2025</h2>
-        <p class="section-subtitle">Eventos que marcaron el mercado laboral colombiano</p>
-      </div>
-      <div class="timeline-grid">
-        <div class="timeline-card">
-          <div class="timeline-year">2010</div>
-          <div class="timeline-label">Inicio del período</div>
-          <div class="timeline-value">TO: 60.1%</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-year">2015</div>
-          <div class="timeline-label">Pico pre-pandemia</div>
-          <div class="timeline-value">TO: 61.7%</div>
-        </div>
-        <div class="timeline-card" style="border-color:var(--accent);border-top:3px solid var(--accent)">
-          <div class="timeline-year" style="color:var(--accent)">2020</div>
-          <div class="timeline-label">Pandemia COVID-19</div>
-          <div class="timeline-value" style="color:var(--accent)">TO: 50.9%</div>
-        </div>
-        <div class="timeline-card">
-          <div class="timeline-year">2022</div>
-          <div class="timeline-label">Recuperación</div>
-          <div class="timeline-value">TO: 57.0%</div>
-        </div>
-        <div class="timeline-card" style="border-color:var(--teal);border-top:3px solid var(--teal)">
-          <div class="timeline-year" style="color:var(--teal)">2025</div>
-          <div class="timeline-label">Último dato</div>
-          <div class="timeline-value" style="color:var(--teal)">TO: 59.1%</div>
-        </div>
-      </div>
-
-      <!-- Gráfico de tendencias -->
-      <div class="chart-container" style="margin-bottom:2rem">
+      <div class="chart-container full-width">
         <div class="chart-header">
-          <div>
-            <div class="chart-title">Evolución completa de indicadores (2010–2025)</div>
-            <div class="chart-subtitle">TGP, TO y TD — Valores nacionales anuales</div>
-          </div>
+          <h3 class="chart-title">Evolución de Indicadores</h3>
           <div class="chart-filters">
             <button class="filter-btn active" onclick="filterTendencias('todos',this)">Todos</button>
             <button class="filter-btn" onclick="filterTendencias('tgp',this)">TGP</button>
             <button class="filter-btn" onclick="filterTendencias('to',this)">TO</button>
-            <button class="filter-btn" onclick="filterTendencias('td',this)">TD</button>
           </div>
         </div>
         <canvas id="tendenciasChart" height="100"></canvas>
       </div>
-
-      <!-- Impacto COVID -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2rem">
-        <div class="card card-accent-pink">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🦠 Impacto COVID-19 (2020)</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
-            La pandemia provocó la mayor caída en empleo de la historia reciente. La tasa de ocupación
-            cayó <strong>10.8 pp</strong> en un solo año, con efectos desproporcionados sobre las mujeres y el sector informal.
-          </p>
-        </div>
-        <div class="card card-accent-teal">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🔄 Recuperación 2021–2023</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
-            La recuperación fue gradual pero sostenida. Para 2022 se recuperaron <strong>6.1 pp</strong> de los
-            niveles pre-pandemia, aunque sin alcanzar aún los máximos históricos de 2015–2019.
-          </p>
-        </div>
-        <div class="card card-accent-amber">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">📊 Proyección 2025</h3>
-          <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
-            Con una TO de <strong>59.1%</strong> en 2025, el mercado laboral se acerca a los niveles pre-pandemia,
-            aunque la brecha de género y la subocupación siguen siendo desafíos estructurales.
-          </p>
-        </div>
-      </div>
-
-      <div class="findings-box">
-        <div class="findings-title">📈 Tendencias estructurales identificadas</div>
-        <ul class="findings-list">
-          <li>Tendencia general de mejora en ocupación desde 2010 hasta 2019 (+1.6 pp acumulados).</li>
-          <li>Ruptura estructural en 2020 por COVID-19: caída de 10.8 pp en la TO nacional.</li>
-          <li>Recuperación sostenida 2021–2025, pero sin alcanzar niveles pre-pandemia en todos los indicadores.</li>
-          <li>Patrones estacionales consistentes: enero presenta los valores más bajos de TO cada año.</li>
-          <li>La tasa de subocupación muestra una tendencia decreciente de largo plazo, indicando mejora en calidad del empleo.</li>
-        </ul>
-      </div>
     </div>
   </section>
 </main>
 
-<!-- ============================================
-     PÁGINA 6: POWER BI
-     ============================================ -->
+<!-- PÁGINA 6: POWER BI -->
 <main id="page-powerbi" class="page">
   <div class="page-header">
     <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon">🟡</div>
-        <div>
-          <h1>Dashboard Power BI</h1>
-          <p>Reporte interactivo completo del análisis del mercado laboral colombiano</p>
-        </div>
-      </div>
+      <h1>Dashboard Power BI</h1>
+      <p>Reporte interactivo de alta profundidad</p>
     </div>
   </div>
-
-  <section class="powerbi-section">
+  <section class="section no-padding">
     <div class="container">
-      <!-- Descripción -->
-      <div class="powerbi-header">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-bottom:2rem">
-          <div class="card card-accent-navy">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">📊</div>
-            <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Dashboards interactivos</h4>
-            <p style="font-size:.8rem;color:var(--text-secondary)">Múltiples páginas con visualizaciones dinámicas y filtros</p>
-          </div>
-          <div class="card card-accent-pink">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">⚥</div>
-            <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Análisis por género</h4>
-            <p style="font-size:.8rem;color:var(--text-secondary)">Comparativas femenino/masculino con segmentadores</p>
-          </div>
-          <div class="card card-accent-teal">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">📅</div>
-            <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Serie temporal 2010–2025</h4>
-            <p style="font-size:.8rem;color:var(--text-secondary)">Evolución mensual con drill-down por año y mes</p>
-          </div>
-          <div class="card card-accent-amber">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">🔗</div>
-            <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Datos DANE</h4>
-            <p style="font-size:.8rem;color:var(--text-secondary)">Fuente oficial: Departamento Nacional de Estadística</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Embed Power BI -->
       <div class="powerbi-embed-wrapper">
         <div class="powerbi-toolbar">
-          <div class="powerbi-toolbar-title">
-            <span>🟡</span>
-            <span>TAD 12 · Mercado Laboral Colombia — Power BI Report</span>
-          </div>
-          <div class="powerbi-toolbar-actions">
-            <a href="https://app.powerbi.com/links/C0e8ZxTaFQ?ctid=2bac32fd-d9a2-40d9-a272-3a35920f5607&pbi_source=linkShare"
-               target="_blank" rel="noopener noreferrer" class="pbi-action-btn">
-              ↗ Abrir en Power BI
-            </a>
-          </div>
+          <span class="toolbar-label">Reporte Interactivo TAD 12</span>
+          <a href="https://app.powerbi.com/links/C0e8ZxTaFQ?ctid=2bac32fd-d9a2-40d9-a272-3a35920f5607&pbi_source=linkShare" target="_blank" class="btn-pbi">Abrir en Power BI</a>
         </div>
-
-        <div class="powerbi-frame-container" id="pbiFrameContainer">
-          <div class="powerbi-loading" id="pbiLoading">
-            <div class="pbi-spinner"></div>
-            <p style="font-size:.875rem;color:var(--text-secondary)">Cargando reporte Power BI...</p>
-          </div>
-          <iframe
-            id="pbiFrame"
-            title="TAD 12 · Mercado Laboral Colombia"
-            src="https://app.powerbi.com/links/C0e8ZxTaFQ?ctid=2bac32fd-d9a2-40d9-a272-3a35920f5607&pbi_source=linkShare&noSignUpCheck=1"
-            allowfullscreen
-            onload="document.getElementById('pbiLoading').style.display='none'"
-            onerror="showPbiError()"
-          ></iframe>
-        </div>
-
-        <div class="powerbi-info-bar">
-          <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
-            <div class="pbi-info-badge">
-              <div class="pbi-dot"></div>
-              <span>Reporte activo</span>
-            </div>
-            <div class="pbi-info-badge">📅 Datos: 2010–2025</div>
-            <div class="pbi-info-badge">📊 Fuente: DANE Colombia</div>
-          </div>
-          <div style="font-size:.75rem;color:var(--text-secondary)">
-            Si el reporte requiere autenticación, usa el botón "Abrir en Power BI"
-          </div>
-        </div>
-      </div>
-
-      <!-- Fallback: acceso directo -->
-      <div id="pbiFallback" style="display:none;margin-top:1.5rem">
-        <div class="warning-box">
-          <strong>⚠️ El reporte requiere autenticación de Microsoft.</strong>
-          Para acceder al dashboard completo, haz clic en el botón de abajo e inicia sesión con tu cuenta institucional.
-        </div>
-        <div style="text-align:center;margin-top:1.25rem">
-          <a href="https://app.powerbi.com/links/C0e8ZxTaFQ?ctid=2bac32fd-d9a2-40d9-a272-3a35920f5607&pbi_source=linkShare"
-             target="_blank" rel="noopener noreferrer" class="btn btn-navy" style="display:inline-flex">
-            🟡 Abrir reporte completo en Power BI
-          </a>
-        </div>
-      </div>
-
-      <!-- Descripción de páginas del reporte -->
-      <div style="margin-top:3rem">
-        <h2 class="section-title" style="text-align:left">Contenido del reporte</h2>
-        <p class="section-subtitle" style="text-align:left">Páginas y dashboards disponibles en el reporte de Power BI</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:1.5rem">
-          <div class="card card-accent-navy">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">📋</div>
-            <h4 style="color:var(--navy);margin-bottom:.5rem">Resumen ejecutivo</h4>
-            <p style="font-size:.875rem;color:var(--text-secondary)">KPIs principales, tendencia general y comparativa de género en una sola vista.</p>
-          </div>
-          <div class="card card-accent-pink">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">⚥</div>
-            <h4 style="color:var(--navy);margin-bottom:.5rem">Análisis de género</h4>
-            <p style="font-size:.875rem;color:var(--text-secondary)">Desagregación femenino/masculino con segmentadores interactivos por año y mes.</p>
-          </div>
-          <div class="card card-accent-teal">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">📈</div>
-            <h4 style="color:var(--navy);margin-bottom:.5rem">Serie temporal</h4>
-            <p style="font-size:.875rem;color:var(--text-secondary)">Evolución mensual de todos los indicadores con drill-down y anotaciones de hitos.</p>
-          </div>
-          <div class="card card-accent-amber">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">🗺️</div>
-            <h4 style="color:var(--navy);margin-bottom:.5rem">Comparativa regional</h4>
-            <p style="font-size:.875rem;color:var(--text-secondary)">Indicadores por región y departamento con mapa interactivo de Colombia.</p>
-          </div>
+        <div class="powerbi-frame-container">
+          <iframe src="https://app.powerbi.com/links/C0e8ZxTaFQ?ctid=2bac32fd-d9a2-40d9-a272-3a35920f5607&pbi_source=linkShare&noSignUpCheck=1" allowfullscreen></iframe>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<!-- ============================================
-     PÁGINA 7: DESCARGAS
-     ============================================ -->
-<main id="page-descargas" class="page">
+<!-- PÁGINA 7: EQUIPO -->
+<main id="page-equipo" class="page">
   <div class="page-header">
     <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon">⬇️</div>
-        <div>
-          <h1>Recursos Descargables</h1>
-          <p>Datasets, reportes y materiales del análisis del mercado laboral</p>
-        </div>
-      </div>
+      <h1>Nuestro Equipo</h1>
+      <p>Estudiantes y docentes del proyecto TAD 12</p>
     </div>
   </div>
 
+  <!-- Foto Grupal -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="group-photo-container">
+        <div class="group-photo-placeholder">
+          <span>Foto Grupal TAD 12</span>
+        </div>
+        <div class="group-photo-info">
+          <h2 class="section-title-sm">Equipo de Trabajo</h2>
+          <p class="content-text">Grupo de estudiantes de Tecnología en Análisis de Datos dedicados a la investigación y visualización del mercado laboral colombiano.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Miembros -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Archivos disponibles</h2>
-        <p class="section-subtitle">Todos los recursos del proyecto TAD 12</p>
-      </div>
-      <div class="downloads-grid">
-        <div class="download-card">
-          <div class="download-icon excel">📗</div>
-          <h3>Dataset completo (Excel)</h3>
-          <p>Dataset original con las dos hojas: datos por género (384 registros) y datos totales (192 registros). Período 2010–2025.</p>
-          <div class="download-meta">
-            <span class="badge badge-teal">Excel .xlsx</span>
-            <span class="badge badge-navy">576 registros</span>
+      <h2 class="section-title-center">Miembros del Proyecto</h2>
+      <div class="team-grid-modern">
+        <div class="member-card">
+          <div class="member-photo-wrapper">
+            <div class="member-photo-placeholder">Foto</div>
           </div>
-          <a href="#" class="btn btn-navy" style="margin-top:.5rem">⬇ Descargar</a>
+          <div class="member-info">
+            <h4 class="member-name">Alonso Herrera</h4>
+            <p class="member-role">Desarrollo Web & Arquitectura</p>
+          </div>
         </div>
-        <div class="download-card">
-          <div class="download-icon csv">📄</div>
-          <h3>Dataset por género (CSV)</h3>
-          <p>Versión CSV del dataset con desagregación femenino/masculino. Ideal para análisis en Python, R o cualquier herramienta estadística.</p>
-          <div class="download-meta">
-            <span class="badge badge-teal">CSV</span>
-            <span class="badge badge-pink">384 registros</span>
-          </div>
-          <a href="#" class="btn btn-navy" style="margin-top:.5rem">⬇ Descargar</a>
+        <div class="member-card">
+          <div class="member-photo-wrapper"><div class="member-photo-placeholder">Foto</div></div>
+          <div class="member-info"><h4 class="member-name">Miembro 2</h4><p class="member-role">Analista de Datos</p></div>
         </div>
-        <div class="download-card">
-          <div class="download-icon pdf">📕</div>
-          <h3>Reporte de análisis (PDF)</h3>
-          <p>Documento completo con metodología, hallazgos, gráficos y conclusiones del análisis exploratorio y estadístico.</p>
-          <div class="download-meta">
-            <span class="badge badge-pink">PDF</span>
-          </div>
-          <a href="#" class="btn btn-navy" style="margin-top:.5rem">⬇ Descargar</a>
+        <div class="member-card">
+          <div class="member-photo-wrapper"><div class="member-photo-placeholder">Foto</div></div>
+          <div class="member-info"><h4 class="member-name">Miembro 3</h4><p class="member-role">Especialista BI</p></div>
         </div>
-        <div class="download-card">
-          <div class="download-icon excel">📊</div>
-          <h3>Dashboard Power BI (.pbix)</h3>
-          <p>Archivo fuente del reporte Power BI para edición y personalización. Requiere Power BI Desktop.</p>
-          <div class="download-meta">
-            <span class="badge badge-amber">.pbix</span>
-          </div>
-          <a href="https://app.powerbi.com/links/C0e8ZxTaFQ?ctid=2bac32fd-d9a2-40d9-a272-3a35920f5607&pbi_source=linkShare"
-             target="_blank" rel="noopener noreferrer" class="btn btn-navy" style="margin-top:.5rem">↗ Ver en Power BI</a>
+        <div class="member-card">
+          <div class="member-photo-wrapper"><div class="member-photo-placeholder">Foto</div></div>
+          <div class="member-info"><h4 class="member-name">Miembro 4</h4><p class="member-role">Investigación</p></div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo-wrapper"><div class="member-photo-placeholder">Foto</div></div>
+          <div class="member-info"><h4 class="member-name">Miembro 5</h4><p class="member-role">Analista de Género</p></div>
+        </div>
+        <div class="member-card">
+          <div class="member-photo-wrapper"><div class="member-photo-placeholder">Foto</div></div>
+          <div class="member-info"><h4 class="member-name">Miembro 6</h4><p class="member-role">Documentación</p></div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="info-box" style="margin-top:2rem">
-        <strong>Nota sobre los datos:</strong> Los datos provienen del DANE (Departamento Administrativo Nacional de Estadística) de Colombia.
-        Para acceder a los datos más recientes o series históricas adicionales, visita el portal oficial del DANE en
-        <a href="https://www.dane.gov.co" target="_blank" rel="noopener noreferrer">www.dane.gov.co</a>.
+  <!-- Maestros -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-title-center">Dirección Académica</h2>
+      <div class="teachers-grid">
+        <div class="teacher-card">
+          <div class="teacher-photo-wrapper">
+            <div class="teacher-photo-placeholder">Foto</div>
+          </div>
+          <div class="teacher-info">
+            <h4 class="teacher-name">Maestro 1</h4>
+            <p class="teacher-role">Director de Proyecto</p>
+          </div>
+        </div>
+        <div class="teacher-card">
+          <div class="teacher-photo-wrapper">
+            <div class="teacher-photo-placeholder">Foto</div>
+          </div>
+          <div class="teacher-info">
+            <h4 class="teacher-name">Maestro 2</h4>
+            <p class="teacher-role">Asesor Técnico</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<!-- ============================================
-     PÁGINA 8: COLABORADORES
-     ============================================ -->
-<main id="page-colaboradores" class="page">
-  <div class="page-header">
-    <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon">👥</div>
-        <div>
-          <h1>Equipo TAD 12</h1>
-          <p>Estudiantes y docentes que desarrollaron este proyecto de análisis de datos</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <section class="section">
-    <div class="container">
-      <div class="team-tabs">
-        <button class="tab-btn tab-active" id="btn-grupo1" onclick="showGrupo('grupo1')">Grupo 1</button>
-        <button class="tab-btn" id="btn-grupo2" onclick="showGrupo('grupo2')">Grupo 2</button>
-      </div>
-
-      <div id="grupo1-tab">
-        <div class="section-header" style="text-align:left">
-          <h2 class="section-title">Grupo 1</h2>
-          <p class="section-subtitle">Análisis exploratorio, indicadores y visualizaciones</p>
-        </div>
-        <div class="team-grid">
-          <div class="team-card">
-            <div class="team-avatar">A</div>
-            <h4>Alonso Herrera</h4>
-            <p>Desarrollo web y arquitectura del proyecto</p>
-            <span class="team-role">Dev Lead</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">M</div>
-            <h4>Miembro 2</h4>
-            <p>Análisis exploratorio y limpieza de datos</p>
-            <span class="team-role">Data Analyst</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">C</div>
-            <h4>Miembro 3</h4>
-            <p>Visualizaciones y dashboards Power BI</p>
-            <span class="team-role">BI Developer</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">D</div>
-            <h4>Miembro 4</h4>
-            <p>Análisis estadístico y documentación</p>
-            <span class="team-role">Analyst</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="grupo2-tab" style="display:none">
-        <div class="section-header" style="text-align:left">
-          <h2 class="section-title">Grupo 2</h2>
-          <p class="section-subtitle">Análisis de género, tendencias y reporte final</p>
-        </div>
-        <div class="team-grid">
-          <div class="team-card">
-            <div class="team-avatar">E</div>
-            <h4>Miembro 5</h4>
-            <p>Análisis de brechas de género</p>
-            <span class="team-role">Analyst</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">F</div>
-            <h4>Miembro 6</h4>
-            <p>Modelado de tendencias y proyecciones</p>
-            <span class="team-role">Data Scientist</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">G</div>
-            <h4>Miembro 7</h4>
-            <p>Diseño de reportes y presentaciones</p>
-            <span class="team-role">Designer</span>
-          </div>
-          <div class="team-card">
-            <div class="team-avatar">H</div>
-            <h4>Miembro 8</h4>
-            <p>Integración de datos y validación</p>
-            <span class="team-role">Data Engineer</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-box" style="margin-top:2.5rem">
-        <strong>Sobre el proyecto:</strong> TAD 12 es un proyecto académico de análisis de datos del mercado laboral colombiano,
-        desarrollado como parte del programa de Tecnología en Análisis de Datos. Utiliza datos oficiales del DANE
-        para generar visualizaciones e insights sobre empleo, género y tendencias laborales en Colombia.
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- Asistente IA -->
 <div id="tad-assistant-root"></div>
 
 <script src="asistente-tad12.js"></script>
