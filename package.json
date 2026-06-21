@@ -1,0 +1,17 @@
+{
+  "name": "tad12-plataforma",
+  "version": "1.0.0",
+  "description": "Plataforma TAD 12 - Visualización y análisis del mercado laboral colombiano",
+  "type": "module",
+  "engines": {
+    "node": ">=18.x"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  }
+}
