@@ -603,7 +603,7 @@ tbody td { padding: 0.8rem 1rem; color: var(--text-primary); }
    ============================================ */
 .team-showcase {
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr);
   gap: 1.5rem;
   align-items: center;
   margin-bottom: 1.5rem;
