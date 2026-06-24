@@ -6,14 +6,14 @@
 // DATOS HISTÓRICOS
 // ============================================
 const DATA = {
-  years: ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
-  toFem:  [46.75, 47.78, 48.94, 48.86, 48.94, 49.27, 48.60, 48.12, 47.01, 45.70, 38.07, 39.99, 44.36, 45.86, 45.74, 46.74],
-  toMas:  [73.44, 74.34, 74.60, 74.18, 74.18, 74.20, 73.30, 72.83, 72.22, 70.68, 63.79, 67.18, 69.63, 70.37, 70.07, 71.43],
+  years: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+  toFem: [46.75, 47.78, 48.94, 48.86, 48.94, 49.27, 48.60, 48.12, 47.01, 45.70, 38.07, 39.99, 44.36, 45.86, 45.74, 46.74],
+  toMas: [73.44, 74.34, 74.60, 74.18, 74.18, 74.20, 73.30, 72.83, 72.22, 70.68, 63.79, 67.18, 69.63, 70.37, 70.07, 71.43],
   tgpFem: [52.10, 53.20, 54.10, 53.90, 54.00, 54.30, 53.70, 53.20, 52.10, 50.80, 43.50, 45.60, 49.80, 51.20, 51.10, 52.00],
   tgpMas: [75.80, 76.50, 76.90, 76.60, 76.60, 76.70, 75.80, 75.30, 74.70, 73.10, 66.90, 70.20, 72.50, 73.10, 72.80, 73.90],
-  tdNac:  [11.80, 10.80, 10.40, 9.70, 9.10, 8.90, 9.20, 9.40, 9.70, 10.50, 15.90, 13.20, 11.20, 10.20, 9.80, 5.60],
-  tdFem:  [14.20, 13.00, 12.50, 11.90, 11.20, 11.00, 11.40, 11.60, 11.90, 12.80, 19.20, 16.20, 13.80, 12.50, 12.00, 7.20],
-  tdMas:  [9.80,  8.90,  8.70,  8.10,  7.50,  7.30,  7.60,  7.80,  8.10,  8.80, 13.20, 10.80,  9.20,  8.50,  8.20,  4.40],
+  tdNac: [11.80, 10.80, 10.40, 9.70, 9.10, 8.90, 9.20, 9.40, 9.70, 10.50, 15.90, 13.20, 11.20, 10.20, 9.80, 5.60],
+  tdFem: [15.8, 14.6, 14.0, 13.0, 12.2, 12.1, 12.4, 12.6, 13.0, 14.0, 21.2, 17.5, 14.3, 12.8, 12.7,11.4],
+  tdMas: [9.2, 8.4, 8.1, 7.6, 7.3, 7.0, 7.4, 7.4, 7.7, 8.5, 13.5, 11.3, 9.0, 8.2, 8.3, 7.0],
 };
 
 // Calcular brecha
@@ -29,14 +29,14 @@ const pages = [
   'page-descargas', 'page-colaboradores'
 ];
 const pageMap = {
-  'inicio':        'page-inicio',
+  'inicio': 'page-inicio',
   'quienes-somos': 'page-quienes-somos',
-  'exploratorio':  'page-exploratorio',
-  'indicadores':   'page-indicadores',
-  'genero':        'page-genero',
-  'tendencias':    'page-tendencias',
-  'powerbi':       'page-powerbi',
-  'descargables':  'page-descargas',
+  'exploratorio': 'page-exploratorio',
+  'indicadores': 'page-indicadores',
+  'genero': 'page-genero',
+  'tendencias': 'page-tendencias',
+  'powerbi': 'page-powerbi',
+  'descargables': 'page-descargas',
   'colaboradores': 'page-colaboradores'
 };
 
@@ -200,15 +200,15 @@ function showPbiError() {
 let chartInstances = {};
 
 const COLORS = {
-  navy:        '#001F3F',
-  navyAlpha:   'rgba(0, 31, 63, 0.08)',
-  pink:        '#E8537A',
-  pinkAlpha:   'rgba(232, 83, 122, 0.08)',
-  teal:        '#0D9488',
-  tealAlpha:   'rgba(13, 148, 136, 0.08)',
-  amber:       '#F59E0B',
-  amberAlpha:  'rgba(245, 158, 11, 0.08)',
-  white:       '#FFFFFF',
+  navy: '#001F3F',
+  navyAlpha: 'rgba(0, 31, 63, 0.08)',
+  pink: '#E8537A',
+  pinkAlpha: 'rgba(232, 83, 122, 0.08)',
+  teal: '#0D9488',
+  tealAlpha: 'rgba(13, 148, 136, 0.08)',
+  amber: '#F59E0B',
+  amberAlpha: 'rgba(245, 158, 11, 0.08)',
+  white: '#FFFFFF',
 };
 
 const chartDefaults = {
@@ -387,7 +387,7 @@ function initTendenciasChart() {
   destroyChart('tendencias');
 
   const tgpNac = DATA.tgpFem.map((f, i) => parseFloat(((f + DATA.tgpMas[i]) / 2).toFixed(2)));
-  const toNac  = DATA.toFem.map((f, i)  => parseFloat(((f + DATA.toMas[i])  / 2).toFixed(2)));
+  const toNac = DATA.toFem.map((f, i) => parseFloat(((f + DATA.toMas[i]) / 2).toFixed(2)));
 
   chartInstances.tendencias = new Chart(canvas.getContext('2d'), {
     type: 'line',
@@ -395,7 +395,7 @@ function initTendenciasChart() {
       labels: DATA.years,
       datasets: [
         makeDataset('TGP Nacional (%)', tgpNac, COLORS.teal, COLORS.tealAlpha),
-        makeDataset('TO Nacional (%)',  toNac,  COLORS.navy, COLORS.navyAlpha),
+        makeDataset('TO Nacional (%)', toNac, COLORS.navy, COLORS.navyAlpha),
         makeDataset('TD Nacional (%)', DATA.tdNac, COLORS.pink, COLORS.pinkAlpha),
       ]
     },
@@ -445,7 +445,7 @@ function buildDataTable() {
   tbody.innerHTML = '';
   DATA.years.forEach((year, i) => {
     const brecha = DATA.brecha[i];
-    const trend = i === 0 ? '—' : DATA.toFem[i] > DATA.toFem[i-1] ? '↑' : '↓';
+    const trend = i === 0 ? '—' : DATA.toFem[i] > DATA.toFem[i - 1] ? '↑' : '↓';
     const trendColor = trend === '↑' ? '#27ae60' : trend === '↓' ? '#e74c3c' : '#999';
     const tdColor = DATA.tdNac[i] > 12 ? '#e74c3c' : DATA.tdNac[i] > 9 ? '#F59E0B' : '#27ae60';
     tbody.innerHTML += `
@@ -559,15 +559,15 @@ window.addEventListener('resize', function () {
 // ============================================
 // EXPONER GLOBALES
 // ============================================
-window.navigateTo          = navigateTo;
-window.navigatePrev        = navigatePrev;
-window.navigateNext        = navigateNext;
-window.toggleMobileMenu    = toggleMobileMenu;
-window.scrollToSection     = scrollToSection;
-window.showGrupo           = showGrupo;
+window.navigateTo = navigateTo;
+window.navigatePrev = navigatePrev;
+window.navigateNext = navigateNext;
+window.toggleMobileMenu = toggleMobileMenu;
+window.scrollToSection = scrollToSection;
+window.showGrupo = showGrupo;
 window.filterChartByGender = filterChartByGender;
-window.filterTendencias    = filterTendencias;
-window.showPbiError        = showPbiError;
+window.filterTendencias = filterTendencias;
+window.showPbiError = showPbiError;
 
 // ============================================
 // LÓGICA DEL MENÚ DESPLEGABLE
@@ -594,9 +594,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Modificar updateNavActive para manejar dropdown-items
 const originalUpdateNavActive = updateNavActive;
-updateNavActive = function(pageId) {
+updateNavActive = function (pageId) {
   originalUpdateNavActive(pageId);
-  
+
   const pageKey = Object.keys(pageMap).find(k => pageMap[k] === pageId);
   document.querySelectorAll('.dropdown-item').forEach(item => {
     item.classList.remove('active');

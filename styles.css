@@ -289,54 +289,77 @@ img { max-width: 100%; display: block; }
 .card-accent-amber { border-left: 4px solid var(--amber); }
 
 /* Stat Cards */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+/* Se cambió a flex para asegurar una sola línea horizontal */
+.stats-grid { 
+  display: flex; 
+  gap: 1.5rem; 
+  width: 100%;
+}
+
 .insight-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
   gap: 1rem;
   margin: 0 0 1.75rem;
+  width: 100%;
 }
+
+
 .insight-card {
   background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
   border: 1px solid rgba(0, 31, 63, 0.08);
   border-radius: var(--radius);
   padding: 1.25rem;
   box-shadow: var(--shadow);
+  
+  flex: 1 1 0px;    
+  min-width: 0;     
+  display: flex;    
+  flex-direction: column;
 }
+
 .insight-card h3 { font-size: 1rem; color: var(--navy); margin-bottom: 0.35rem; }
 .insight-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
+
 .insight-number {
   display: inline-flex; align-items: center; justify-content: center;
   width: 2rem; height: 2rem; border-radius: 50%;
   margin-bottom: 0.85rem; background: rgba(0, 31, 63, 0.08);
   color: var(--navy); font-size: 0.8rem; font-weight: 800;
 }
+
 .stat-card {
   background: var(--white); border-radius: var(--radius);
   padding: 1.75rem; border: 1px solid var(--border-color);
   transition: var(--transition); text-align: center;
   position: relative; overflow: hidden;
+  
+  flex: 1 1 0px;    
+  min-width: 0;
 }
+
 .stat-card::before {
   content: ''; position: absolute;
   top: 0; left: 0; right: 0; height: 4px;
 }
+
 .stat-card.navy::before { background: var(--navy); }
 .stat-card.pink::before { background: var(--accent); }
 .stat-card.teal::before { background: var(--teal); }
 .stat-card.amber::before { background: var(--amber); }
+
 .stat-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
 .stat-card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
 .stat-card h3 { font-size: 2.2rem; color: var(--navy); margin-bottom: 0.35rem; }
 .stat-card p { color: var(--text-secondary); font-size: 0.875rem; }
+
 .stat-card-trend {
   display: inline-flex; align-items: center; gap: 0.3rem;
   font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem;
   padding: 0.2rem 0.6rem; border-radius: 2rem;
 }
+
 .trend-up { background: rgba(39,174,96,0.12); color: #27ae60; }
 .trend-down { background: rgba(231,76,60,0.12); color: #e74c3c; }
-
 /* ============================================
    LAYOUT CON SIDEBAR
    ============================================ */
@@ -465,25 +488,35 @@ tbody td { padding: 0.8rem 1rem; color: var(--text-primary); }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
-@media (max-width: 720px) { .about-cascade-grid { grid-template-columns: 1fr; } }
-.about-cascade-card-left { margin-top: 0.35rem; }
-.about-cascade-card-right { margin-top: 1.25rem; }
-.about-media {
-  margin: 0;
-  background: var(--white);
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 31, 63, 0.08);
-  box-shadow: var(--shadow-hover);
+/* Contenedor de las dos tarjetas */
+.contenedor-tarjetas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
 }
-.about-media-large { min-height: 100%; }
-.about-media img {
-  width: 100%;
-  min-height: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  display: block;
+
+
+.tarjeta-mision-vision {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  
+  
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
 }
+
+.tarjeta-mision {
+  border-left: 5px solid #001f3f; 
+}
+
+.tarjeta-vision {
+  border-left: 5px solid #e91e63; 
+}
+
 .about-media figcaption {
   padding: 0.95rem 1.1rem 1.1rem;
   font-size: 0.84rem;
@@ -735,16 +768,31 @@ tbody td { padding: 0.8rem 1rem; color: var(--text-primary); }
 /* ============================================
    VARIABLES / INDICADORES
    ============================================ */
-.variables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+/* Contenedor corregido para forzar una sola línea de 4 columnas iguales */
+.variables-grid { 
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); /* Fuerza exactamente 4 columnas */
+  gap: 1.25rem; 
+  align-items: stretch;                  /* Hace que todas midan lo mismo de alto */
+  width: 100%;
+}
+
 .variable-card {
   background: var(--white); border-radius: var(--radius);
   padding: 1.5rem; border: 1px solid var(--border-color);
   border-left: 4px solid var(--navy); transition: var(--transition);
+  
+  /* Permite alinear el porcentaje (62%, 58%, etc.) siempre al fondo de la tarjeta */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
 }
+
 .variable-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
 .variable-card-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
 .variable-card h4 { color: var(--navy); margin-bottom: 0.5rem; font-size: 1rem; }
-.variable-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; }
+.variable-card p { color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6; flex-grow: 1; }
+
 .variable-card .var-value {
   font-size: 1.5rem; font-weight: 800; color: var(--navy);
   margin-top: 0.75rem;
