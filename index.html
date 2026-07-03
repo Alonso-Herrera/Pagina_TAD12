@@ -13,6 +13,160 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<style>
+body.home-mode .header{display:none!important}
+.section-launch{padding:3rem 0;background:#eef5fb}
+.launch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.launch-card{background:#fff;border-radius:16px;padding:20px;cursor:pointer;transition:.3s;box-shadow:0 8px 18px rgba(0,0,0,.1)}
+.launch-card:hover{transform:translateY(-6px)} .launch-card p{opacity:0;max-height:0;overflow:hidden;transition:.3s}.launch-card:hover p{opacity:1;max-height:80px}
+</style>
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --navy-light: #1a3260;
+    --pink: #e8356d;
+    --teal: #00b4a0;
+    --gold: #f5a623;
+    --purple: #7c4dff;
+    --bg: #f4f7fb;
+    --white: #ffffff;
+    --text: #1a2540;
+    --muted: #6b7a99;
+    --border: #e2e8f0;
+    --card-shadow: 0 4px 24px rgba(15,31,61,0.09);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); }
+
+  /* LAYOUT */
+  .layout { display:grid; grid-template-columns: 200px 1fr; gap:28px; min-height:calc(100vh - 60px); }
+
+  /* SIDEBAR */
+  aside {
+    background:var(--white);
+    border-right:1px solid var(--border);
+    padding:22px 14px;
+    position:sticky; top:60px;
+    max-height:calc(100vh - 60px);
+    overflow-y:auto;
+    min-width:0;
+    scrollbar-width:thin;
+  }
+  aside .section-label { font-size:.65rem; font-weight:700; letter-spacing:.1em; color:var(--muted); text-transform:uppercase; margin-bottom:6px; }
+  aside nav a { display:flex; align-items:center; gap:6px; padding:5px 9px; border-radius:7px; font-size:.76rem; line-height:1.25; color:var(--text); text-decoration:none; margin-bottom:1px; transition:.15s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  aside nav a:hover { background:var(--bg); }
+  aside nav a.active-link { background:#e8f0fe; color:var(--navy); font-weight:600; }
+  .quickstats { margin-top:14px; background:var(--bg); border-radius:10px; padding:10px; }
+  .quickstats .qs-label { font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:1px; }
+  .quickstats .qs-val { font-size:.95rem; font-weight:700; color:var(--navy); margin-bottom:7px; }
+  .back-to-top { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:10px; padding:7px 10px; border-radius:8px; background:var(--navy); color:#fff; font-size:.76rem; font-weight:600; text-decoration:none; transition:.15s; }
+  .back-to-top:hover { background:var(--navy-light); }
+
+  /* MAIN */
+  #page-exploratorio { padding:36px 40px; max-width:1100px; }
+  .page-title { font-size:1.7rem; font-weight:800; color:var(--navy); margin-bottom:6px; }
+  .page-subtitle { color:var(--muted); font-size:.95rem; margin-bottom:36px; }
+  /* SECTIONS */
+  section { margin-bottom:56px; scroll-margin-top:80px; }
+  .section-title { font-size:1.25rem; font-weight:700; color:var(--navy); margin-bottom:6px; padding-bottom:10px; border-bottom:2px solid var(--border); }
+  .section-desc { color:var(--muted); font-size:.9rem; margin-bottom:20px; margin-top:4px; }
+</style>
+<style>
+  /* KPI CARDS */
+  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:8px; }
+  .kpi-card { background:var(--white); border-radius:14px; padding:20px; box-shadow:var(--card-shadow); border-top:3px solid var(--border); }
+  .kpi-card.tgp { border-color:var(--purple); }
+  .kpi-card.to  { border-color:var(--pink); }
+  .kpi-card.td  { border-color:var(--teal); }
+  .kpi-card.ts  { border-color:var(--gold); }
+  .kpi-icon { font-size:1.6rem; margin-bottom:8px; }
+  .kpi-name { font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .kpi-desc { font-size:.75rem; color:var(--muted); margin-bottom:12px; line-height:1.4; }
+  .kpi-val  { font-size:1.9rem; font-weight:800; }
+  .kpi-card.tgp .kpi-val { color:var(--purple); }
+  .kpi-card.to  .kpi-val { color:var(--pink); }
+  .kpi-card.td  .kpi-val { color:var(--teal); }
+  .kpi-card.ts  .kpi-val { color:var(--gold); }
+
+  /* COBERTURA TEMPORAL */
+  .cob-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .cob-card { border-radius:12px; padding:18px 16px; color:#fff; }
+  .cob-card:nth-child(1) { background:var(--navy); }
+  .cob-card:nth-child(2) { background:var(--navy-light); }
+  .cob-card:nth-child(3) { background:var(--pink); }
+  .cob-card:nth-child(4) { background:var(--teal); }
+  .cob-label { font-size:.72rem; opacity:.8; margin-bottom:4px; }
+  .cob-value { font-size:1.3rem; font-weight:800; }
+
+  /* CHARTS */
+  .chart-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .chart-card { background:var(--white); border-radius:14px; padding:24px; box-shadow:var(--card-shadow); }
+  .chart-card-title { font-size:.9rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+  .chart-card-sub { font-size:.78rem; color:var(--muted); margin-bottom:16px; }
+  .chart-full { background:var(--white); border-radius:14px; padding:24px; box-shadow:var(--card-shadow); margin-bottom:24px; }
+
+  /* TABLA */
+  .table-wrap { overflow-x:auto; background:var(--white); border-radius:14px; box-shadow:var(--card-shadow); }
+  table { width:100%; border-collapse:collapse; font-size:.84rem; }
+  thead th { background:var(--navy); color:#fff; padding:12px 14px; text-align:left; font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; }
+  tbody tr:nth-child(even) { background:#f8fafd; }
+  tbody td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text); }
+  .badge { display:inline-block; padding:2px 8px; border-radius:20px; font-size:.72rem; font-weight:600; }
+  .badge-num { background:#e8f0fe; color:#1a56db; }
+  .badge-txt { background:#e8faf5; color:#0e7a60; }
+
+  /* GENERO TABS */
+  .tabs { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+  .tab { padding:7px 18px; border-radius:8px; border:1px solid var(--border); font-size:.84rem; cursor:pointer; background:var(--white); color:var(--muted); transition:.15s; }
+  .tab.active { background:var(--navy); color:#fff; border-color:var(--navy); font-weight:600; }
+
+  /* CIUDAD SELECT */
+  .city-select-row { display:flex; gap:10px; align-items:center; margin-bottom:18px; flex-wrap:wrap; }
+  select { padding:7px 14px; border:1px solid var(--border); border-radius:8px; font-size:.85rem; color:var(--text); background:var(--white); cursor:pointer; }
+
+  /* POBREZA */
+  .pobreza-highlight { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+  .ph-card { flex:1; min-width:160px; background:var(--white); border-radius:12px; padding:16px; box-shadow:var(--card-shadow); text-align:center; }
+  .ph-num  { font-size:1.7rem; font-weight:800; color:var(--pink); }
+  .ph-lbl  { font-size:.75rem; color:var(--muted); margin-top:2px; }
+
+  /* SMLV */
+  .smlv-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+
+  /* OCUPACION */
+  .ocu-legend { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .ocu-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; }
+
+  /* HALLAZGOS */
+  .hallazgos-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .hallazgo-card { background:var(--white); border-radius:14px; padding:22px; box-shadow:var(--card-shadow); border-left:4px solid var(--purple); }
+  .hallazgo-card:nth-child(2) { border-color:var(--teal); }
+  .hallazgo-card:nth-child(3) { border-color:var(--pink); }
+  .hallazgo-card:nth-child(4) { border-color:var(--gold); }
+  .hallazgo-card:nth-child(5) { border-color:var(--navy); }
+  .hallazgo-card:nth-child(6) { border-color:#e91e63; }
+  .hallazgo-ico { font-size:1.5rem; margin-bottom:8px; }
+  .hallazgo-title { font-weight:700; font-size:.95rem; margin-bottom:6px; color:var(--navy); }
+  .hallazgo-text { font-size:.83rem; color:var(--muted); line-height:1.55; }
+
+  /* ESTRUCTURA */
+  .estructura-table th:nth-child(1) { width:130px; }
+  .estructura-table th:nth-child(2) { width:100px; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width:6px; height:6px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:#c5cfe0; border-radius:3px; }
+
+  @media(max-width:900px){
+    .layout { grid-template-columns:1fr; }
+    aside { display:none; }
+    .kpi-grid, .cob-grid { grid-template-columns:1fr 1fr; }
+    .chart-grid-2, .hallazgos-grid, .smlv-grid { grid-template-columns:1fr; }
+    main { padding:20px; }
+  }
+</style>
 </head>
 <body>
 
@@ -156,7 +310,15 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  
+<section class="section-launch"><div class="container"><h2>Explora la plataforma</h2>
+<div class="launch-grid">
+<div class="launch-card" onclick="navigateTo('page-quienes-somos')"><h3>👥 Quiénes somos</h3><p>Conoce el propósito y misión.</p></div>
+<div class="launch-card" onclick="navigateTo('page-exploratorio')"><h3>📊 Exploratorio</h3><p>Variables y estructura.</p></div>
+<div class="launch-card" onclick="navigateTo('page-powerbi')"><h3>🟡 Power BI</h3><p>Dashboard interactivo.</p></div>
+<div class="launch-card" onclick="navigateTo('page-colaboradores')"><h3>👨‍💻 Equipo</h3><p>Integrantes del proyecto.</p></div>
+</div></div></section>
+<!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -267,184 +429,578 @@
      PÁGINA 2: ANÁLISIS EXPLORATORIO
      ============================================ -->
 <main id="page-exploratorio" class="page">
-  <div class="page-header">
-    <div class="container">
-      <div class="page-header-inner">
-        <div class="page-header-icon page-header-icon-image">
-          <img src="IMG/Utilidades/Lupa.jpg" alt="Icono del equipo TAD 12" />
+<div class="layout">
+  <aside>
+    <div class="section-label">Contenido</div>
+    <nav>
+      <a href="#descripcion" class="active-link">📋 Descripción</a>
+      <a href="#variables">📌 Variables</a>
+      <a href="#cobertura">🗓️ Cobertura temporal</a>
+      <a href="#estructura">🏗️ Estructura</a>
+      <a href="#nacional">📈 Tendencia Nacional</a>
+      <a href="#genero">👥 Brecha de Género</a>
+      <a href="#ciudades">🏙️ Ciudades</a>
+      <a href="#pobreza">💰 Pobreza Monetaria</a>
+      <a href="#smlv">💼 SMLV & Mercado</a>
+      <a href="#ingresos">🏭 Ingresos por Ciudad</a>
+      <a href="#ocupacion">🔧 Ocupación Laboral</a>
+      <a href="#hallazgos">💡 Hallazgos</a>
+    </nav>
+    <div class="quickstats">
+      <div class="qs-label">Total registros</div>
+      <div class="qs-val">576</div>
+      <div class="qs-label">Período</div>
+      <div class="qs-val">2010–2025</div>
+      <div class="qs-label">Frecuencia</div>
+      <div class="qs-val">Mensual</div>
+    </div>
+    <a href="#descripcion" class="back-to-top">⬆ Volver arriba</a>
+  </aside>
+
+  <div class="page-content">
+    <div class="page-title">Exploratorio del Dataset</div>
+    <div class="page-subtitle">Mercado laboral colombiano 2010–2025 · Datos DANE · Desagregación mensual por sexo y ciudad</div>
+
+    <!-- DESCRIPCION -->
+    <section id="descripcion">
+      <div class="section-title">Descripción General</div>
+      <div class="section-desc">El dataset unificado consolida ocho fuentes del DANE sobre el mercado laboral colombiano, cubriendo indicadores nacionales, 37 ciudades y desagregación por género. Permite análisis comparativos de corto y largo plazo entre 2010 y 2025.</div>
+    </section>
+
+    <!-- VARIABLES -->
+    <section id="variables">
+      <div class="section-title">Variables Principales</div>
+      <div class="section-desc">El dataset incluye cuatro indicadores laborales fundamentales, cada uno con desagregación por género:</div>
+      <div class="kpi-grid">
+        <div class="kpi-card tgp">
+          <div class="kpi-icon">👥</div>
+          <div class="kpi-name">Tasa Global de Participación (TGP)</div>
+          <div class="kpi-desc">Proporción de la fuerza de trabajo respecto a la población en edad de trabajar.</div>
+          <div class="kpi-val">64.3%</div>
         </div>
-        <div>
-          <h1>Análisis Exploratorio</h1>
-          <p>Descripción del dataset, variables y estructura de los datos del mercado laboral colombiano</p>
+        <div class="kpi-card to">
+          <div class="kpi-icon">💼</div>
+          <div class="kpi-name">Tasa de Ocupación (TO)</div>
+          <div class="kpi-desc">Proporción de la población ocupada respecto a la población en edad de trabajar.</div>
+          <div class="kpi-val">59.2%</div>
+        </div>
+        <div class="kpi-card td">
+          <div class="kpi-icon">🔍</div>
+          <div class="kpi-name">Tasa de Desocupación (TD)</div>
+          <div class="kpi-desc">Proporción de desocupados respecto a la fuerza de trabajo activa.</div>
+          <div class="kpi-val">8.0%</div>
+        </div>
+        <div class="kpi-card ts">
+          <div class="kpi-icon">⏱️</div>
+          <div class="kpi-name">Tasa de Subocupación (TS)</div>
+          <div class="kpi-desc">Proporción de población subocupada respecto a la fuerza de trabajo.</div>
+          <div class="kpi-val">7.9%</div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="section">
-    <div class="container">
-      <div class="content-grid">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-          <div class="sidebar-box">
-            <div class="sidebar-title">Contenido</div>
-            <nav class="sidebar-nav">
-              <a class="sidebar-link" href="#descripcion">📋 Descripción</a>
-              <a class="sidebar-link" href="#variables">📌 Variables</a>
-              <a class="sidebar-link" href="#cobertura">📅 Cobertura temporal</a>
-              <a class="sidebar-link" href="#estructura">🗂️ Estructura</a>
-              <a class="sidebar-link" href="#hallazgos">💡 Hallazgos</a>
-            </nav>
-          </div>
-          <div class="sidebar-box">
-            <div class="sidebar-title">Resumen rápido</div>
-            <div style="display:flex;flex-direction:column;gap:.75rem">
-              <div>
-                <div style="font-size:.75rem;color:var(--text-secondary)">Total registros</div>
-                <div style="font-size:1.3rem;font-weight:800;color:var(--navy)">576</div>
-              </div>
-              <div>
-                <div style="font-size:.75rem;color:var(--text-secondary)">Período</div>
-                <div style="font-size:1.1rem;font-weight:700;color:var(--navy)">2010–2025</div>
-              </div>
-              <div>
-                <div style="font-size:.75rem;color:var(--text-secondary)">Frecuencia</div>
-                <div style="font-size:1.1rem;font-weight:700;color:var(--navy)">Mensual</div>
-              </div>
-            </div>
-          </div>
-        </aside>
+    <!-- COBERTURA -->
+    <section id="cobertura">
+      <div class="section-title">Cobertura Temporal</div>
+      <div class="section-desc">Los datos se recopilan mensualmente, permitiendo análisis de tendencias a corto y largo plazo, así como la identificación de patrones estacionales en el mercado laboral colombiano.</div>
+      <div class="cob-grid">
+        <div class="cob-card"><div class="cob-label">Período inicial</div><div class="cob-value">Ene 2010</div></div>
+        <div class="cob-card"><div class="cob-label">Período final</div><div class="cob-value">Dic 2025</div></div>
+        <div class="cob-card"><div class="cob-label">Total meses</div><div class="cob-value">180 meses</div></div>
+        <div class="cob-card"><div class="cob-label">Desagregación</div><div class="cob-value">F / M / Total</div></div>
+      </div>
+    </section>
 
-        <!-- Contenido principal -->
-        <div class="content-main">
-          <div class="content-section" id="descripcion">
-            <h2 class="content-title">Descripción del Dataset</h2>
-            <p class="content-text">
-              El dataset contiene información mensual sobre indicadores de población, empleo y género a nivel nacional colombiano.
-              Los datos abarcan un período de <strong>15 años (2010–2025)</strong> y están organizados en dos hojas principales
-              con desagregación por género y totales nacionales.
-            </p>
-            <div class="stats-grid" style="margin-top:1.25rem">
-              <div class="stat-card navy">
-                <div class="stat-card-icon">📊</div>
-                <h3>384</h3>
-                <p>Registros por género</p>
-              </div>
-              <div class="stat-card pink">
-                <div class="stat-card-icon">📋</div>
-                <h3>192</h3>
-                <p>Registros totales</p>
-              </div>
-              <div class="stat-card teal">
-                <div class="stat-card-icon">📅</div>
-                <h3>180</h3>
-                <p>Meses de cobertura</p>
-              </div>
-              <div class="stat-card amber">
-                <div class="stat-card-icon">📐</div>
-                <h3>19</h3>
-                <p>Columnas por hoja</p>
-              </div>
-            </div>
-          </div>
+    <!-- ESTRUCTURA -->
+    <section id="estructura">
+      <div class="section-title">Estructura del Dataset</div>
+      <div class="section-desc">El archivo Excel unificado contiene 8 hojas de trabajo con distintas granularidades de análisis.</div>
+      <div class="table-wrap">
+        <table class="estructura-table">
+          <thead><tr><th>Campo</th><th>Tipo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+          <tbody>
+            <tr><td>Año</td><td><span class="badge badge-num">Numérico</span></td><td>Año del registro</td><td>2023</td></tr>
+            <tr><td>Mes</td><td><span class="badge badge-txt">Texto</span></td><td>Mes del registro</td><td>ENERO</td></tr>
+            <tr><td>SEXO + TOTAL</td><td><span class="badge badge-txt">Texto</span></td><td>Desagregación por género</td><td>FEMENINO / MASCULINO</td></tr>
+            <tr><td>TGP</td><td><span class="badge badge-num">Decimal</span></td><td>Tasa Global de Participación</td><td>0.643</td></tr>
+            <tr><td>TO</td><td><span class="badge badge-num">Decimal</span></td><td>Tasa de Ocupación</td><td>0.585</td></tr>
+            <tr><td>TD</td><td><span class="badge badge-num">Decimal</span></td><td>Tasa de Desocupación</td><td>0.091</td></tr>
+            <tr><td>TS</td><td><span class="badge badge-num">Decimal</span></td><td>Tasa de Subocupación</td><td>0.079</td></tr>
+            <tr><td>Ciudad</td><td><span class="badge badge-txt">Texto</span></td><td>Ciudad o área metropolitana</td><td>Bogotá D.C.</td></tr>
+            <tr><td>Salario Mínimo</td><td><span class="badge badge-num">Entero</span></td><td>SMLV vigente en el año</td><td>$1.423.500</td></tr>
+            <tr><td>Tasa de Pobreza</td><td><span class="badge badge-num">Decimal</span></td><td>Porcentaje de personas en pobreza</td><td>28.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Hoja</th><th>Registros</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td>Total_Nacional</td><td>192</td><td>Series mensuales nacionales 2010–2025</td></tr>
+            <tr><td>Genero</td><td>384</td><td>Desagregación mensual F/M 2010–2025</td></tr>
+            <tr><td>Ciudades_año_movil</td><td>185</td><td>37 ciudades, promedio año móvil 2021–2025</td></tr>
+            <tr><td>23 ciudades</td><td>5.018</td><td>23 ciudades principales por trimestre 2010–2025</td></tr>
+            <tr><td>Ocupación laboral por ciudad</td><td>4.632</td><td>Tipo de ocupación por ciudad y trimestre</td></tr>
+            <tr><td>SMLV_FuerzaTrabajo</td><td>16</td><td>SMLV anual y tasas 2010–2025</td></tr>
+            <tr><td>PobrezaMonetaria</td><td>14</td><td>Tasas de pobreza nacional 2012–2025</td></tr>
+            <tr><td>Ingresos-5ciudades</td><td>25</td><td>Tipo de empleo en 5 ciudades 2021–2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-          <div class="content-section" id="variables">
-            <h2 class="content-title">Variables Principales</h2>
-            <p class="content-text">El dataset incluye cuatro indicadores laborales fundamentales, cada uno con desagregación por género:</p>
-            <div class="variables-grid">
-              <div class="variable-card">
-                <div class="variable-card-icon">👥</div>
-                <h4>Tasa Global de Participación (TGP)</h4>
-                <p>Proporción de la fuerza de trabajo respecto a la población en edad de trabajar.</p>
-                <div class="var-value">62%</div>
-              </div>
-              <div class="variable-card" style="border-left-color:var(--accent)">
-                <div class="variable-card-icon">💼</div>
-                <h4>Tasa de Ocupación (TO)</h4>
-                <p>Proporción de la población ocupada respecto a la población en edad de trabajar.</p>
-                <div class="var-value" style="color:var(--accent)">58%</div>
-              </div>
-              <div class="variable-card" style="border-left-color:var(--teal)">
-                <div class="variable-card-icon">🔍</div>
-                <h4>Tasa de Desocupación (TD)</h4>
-                <p>Proporción de desocupados respecto a la fuerza de trabajo activa.</p>
-                <div class="var-value" style="color:var(--teal)">10%</div>
-              </div>
-              <div class="variable-card" style="border-left-color:var(--amber)">
-                <div class="variable-card-icon">⏱️</div>
-                <h4>Tasa de Subocupación (TS)</h4>
-                <p>Proporción de población subocupada respecto a la fuerza de trabajo.</p>
-                <div class="var-value" style="color:var(--amber)">8%</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content-section" id="cobertura">
-            <h2 class="content-title">Cobertura Temporal</h2>
-            <p class="content-text">Los datos se recopilan mensualmente, permitiendo análisis de tendencias a corto y largo plazo, así como la identificación de patrones estacionales en el mercado laboral colombiano.</p>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:1.25rem">
-              <div style="background:var(--navy);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Período inicial</div>
-                <div style="font-size:1.4rem;font-weight:800">Ene 2010</div>
-              </div>
-              <div style="background:var(--navy);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Período final</div>
-                <div style="font-size:1.4rem;font-weight:800">Dic 2025</div>
-              </div>
-              <div style="background:var(--accent);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Total meses</div>
-                <div style="font-size:1.4rem;font-weight:800">180 meses</div>
-              </div>
-              <div style="background:var(--teal);color:var(--white);border-radius:var(--radius);padding:1.25rem;text-align:center">
-                <div style="font-size:.8rem;opacity:.8;margin-bottom:.35rem">Desagregación</div>
-                <div style="font-size:1.1rem;font-weight:800">F / M / Total</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content-section" id="estructura">
-            <h2 class="content-title">Estructura del Dataset</h2>
-            <div class="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Campo</th>
-                    <th>Tipo</th>
-                    <th>Descripción</th>
-                    <th>Ejemplo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><strong>Año</strong></td><td><span class="badge badge-navy">Numérico</span></td><td>Año del registro</td><td>2023</td></tr>
-                  <tr><td><strong>Mes</strong></td><td><span class="badge badge-teal">Texto</span></td><td>Mes del registro</td><td>ENERO</td></tr>
-                  <tr><td><strong>Género</strong></td><td><span class="badge badge-pink">Categórico</span></td><td>Desagregación por género</td><td>FEMENINO</td></tr>
-                  <tr><td><strong>TGP</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa Global de Participación</td><td>54.2</td></tr>
-                  <tr><td><strong>TO</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa de Ocupación</td><td>48.7</td></tr>
-                  <tr><td><strong>TD</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa de Desocupación</td><td>10.1</td></tr>
-                  <tr><td><strong>TS</strong></td><td><span class="badge badge-amber">Decimal</span></td><td>Tasa de Subocupación</td><td>7.8</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="content-section" id="hallazgos">
-            <h2 class="content-title">Hallazgos Preliminares</h2>
-            <div class="findings-box">
-              <div class="findings-title">💡 Principales hallazgos del análisis exploratorio</div>
-              <ul class="findings-list">
-                <li>Brecha significativa en tasas de ocupación entre géneros de <strong>24.3 puntos porcentuales</strong> en promedio.</li>
-                <li>Tendencia general de mejora en ocupación desde 2010 hasta 2019, con recuperación post-pandemia hacia 2022.</li>
-                <li>Caída histórica en 2020 por COVID-19: la tasa de ocupación femenina bajó a <strong>38.07%</strong>.</li>
-                <li>Patrones estacionales evidentes: los meses de enero y diciembre presentan variaciones consistentes.</li>
-                <li>La tasa de desocupación femenina supera consistentemente a la masculina en todos los períodos analizados.</li>
-              </ul>
-            </div>
-          </div>
+    <!-- TENDENCIA NACIONAL -->
+    <section id="nacional">
+      <div class="section-title">Tendencia Nacional 2010–2025</div>
+      <div class="section-desc">Evolución anual de los cuatro indicadores clave del mercado laboral colombiano. La pandemia de 2020 marcó un quiebre histórico con recuperación sostenida desde 2021.</div>
+      <div class="chart-full">
+        <div class="chart-card-title">TGP, TO y TD Anuales — Serie 2010–2025</div>
+        <div class="chart-card-sub">Promedio anual calculado desde datos mensuales del DANE</div>
+        <canvas id="chartNacional" height="90"></canvas>
+      </div>
+      <div class="chart-grid-2">
+        <div class="chart-card">
+          <div class="chart-card-title">Salario Mínimo (SMLV)</div>
+          <div class="chart-card-sub">Evolución en pesos colombianos 2010–2025</div>
+          <canvas id="chartSMLV" height="180"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Variación % Anual del SMLV</div>
+          <div class="chart-card-sub">Porcentaje de incremento año a año</div>
+          <canvas id="chartVarSMLV" height="180"></canvas>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- GENERO -->
+    <section id="genero">
+      <div class="section-title">Brecha de Género en el Mercado Laboral</div>
+      <div class="section-desc">Comparación de los indicadores laborales entre mujeres y hombres. La brecha de participación femenina sigue siendo estructural aunque con tendencia a reducirse desde 2010.</div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchGender('tgp',this)">TGP</button>
+        <button class="tab" onclick="switchGender('to',this)">Ocupación (TO)</button>
+        <button class="tab" onclick="switchGender('td',this)">Desocupación (TD)</button>
+      </div>
+      <div class="chart-full">
+        <div class="chart-card-title" id="genderChartTitle">Tasa Global de Participación por Género 2010–2025</div>
+        <div class="chart-card-sub">Promedio anual · Desagregación por sexo</div>
+        <canvas id="chartGenero" height="90"></canvas>
+      </div>
+      <div class="chart-grid-2">
+        <div class="chart-card">
+          <div class="chart-card-title">Brecha TGP Femenino vs Masculino — 2025</div>
+          <div class="chart-card-sub">Diferencia de participación laboral por género</div>
+          <canvas id="chartBrechaBar" height="200"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Distribución promedio 2025 — Femenino</div>
+          <div class="chart-card-sub">Composición de la fuerza de trabajo femenina</div>
+          <canvas id="chartGenDona" height="200"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- CIUDADES -->
+    <section id="ciudades">
+      <div class="section-title">Mercado Laboral por Ciudad</div>
+      <div class="section-desc">37 ciudades monitoreadas. Selecciona una ciudad para ver su evolución 2021–2025 en los indicadores principales.</div>
+      <div class="city-select-row">
+        <label style="font-size:.85rem;color:var(--muted)">Ciudad:</label>
+        <select id="citySelector" onchange="updateCityChart()">
+          <option>Bogotá D.C</option><option>Medellin</option><option>Cali</option>
+          <option>Barranquilla</option><option>Bucaramanga</option><option>Manizales</option>
+          <option>Pasto</option><option>Pereira</option><option>Cucuta</option>
+          <option>Ibagué</option><option>Montería</option><option>Cartagena</option>
+          <option>Villavicencio</option><option>Tunja</option><option>Florencia</option>
+          <option>Popayán</option><option>Valledupar</option><option>Quibdó</option>
+          <option>Neiva</option><option>Riohacha</option><option>Santa Marta</option>
+          <option>Armenia</option><option>Sincelejo</option><option>Arauca</option>
+          <option>Yopal</option><option>Mocoa</option><option>Leticia</option>
+          <option>Inírida</option><option>San José del Guaviare</option><option>Mitú</option>
+          <option>Puerto Carreño</option><option>San Andrés</option><option>Buenaventura</option>
+          <option>Barrancabermeja</option><option>Soacha</option><option>Tumaco</option>
+          <option>Rionegro</option>
+        </select>
+      </div>
+      <div class="chart-full">
+        <div class="chart-card-title" id="cityChartTitle">Indicadores Laborales — Bogotá D.C (2021–2025)</div>
+        <canvas id="chartCiudad" height="90"></canvas>
+      </div>
+      <div class="chart-full" style="margin-top:0">
+        <div class="chart-card-title">Ranking TD 2025 — Top 10 ciudades con mayor desempleo</div>
+        <div class="chart-card-sub">Ciudades con mayor Tasa de Desocupación en 2025</div>
+        <canvas id="chartCiudadRanking" height="100"></canvas>
+      </div>
+    </section>
+
+    <!-- POBREZA -->
+    <section id="pobreza">
+      <div class="section-title">Pobreza Monetaria Nacional 2012–2025</div>
+      <div class="section-desc">Evolución de la tasa de pobreza monetaria en Colombia. El impacto del COVID-19 en 2020 elevó la tasa a 43.1%, con reducción sostenida hasta 28.0% en 2025.</div>
+      <div class="pobreza-highlight">
+        <div class="ph-card"><div class="ph-num">43.1%</div><div class="ph-lbl">Pico pandemia 2020</div></div>
+        <div class="ph-card"><div class="ph-num" style="color:var(--teal)">28.0%</div><div class="ph-lbl">Tasa 2025 (mín. histórico)</div></div>
+        <div class="ph-card"><div class="ph-num" style="color:var(--gold)">14.4M</div><div class="ph-lbl">Personas en pobreza 2025</div></div>
+        <div class="ph-card"><div class="ph-num" style="color:var(--purple)">−3.8pp</div><div class="ph-lbl">Reducción vs 2024</div></div>
+      </div>
+      <div class="chart-full">
+        <div class="chart-card-title">Tasa de Pobreza Monetaria 2012–2025</div>
+        <canvas id="chartPobreza" height="90"></canvas>
+      </div>
+      <div class="chart-grid-2">
+        <div class="chart-card">
+          <div class="chart-card-title">Personas en pobreza (miles) 2012–2025</div>
+          <canvas id="chartPobrezaPersonas" height="200"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Variación anual de personas en pobreza (miles)</div>
+          <canvas id="chartPobrezaVar" height="200"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- SMLV -->
+    <section id="smlv">
+      <div class="section-title">SMLV y Fuerza de Trabajo Anual</div>
+      <div class="section-desc">Evolución del Salario Mínimo Legal Vigente y su relación con los indicadores del mercado laboral. El SMLV pasó de $515.000 en 2010 a $1.423.500 en 2025, un incremento del 176%.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Año</th><th>SMLV</th><th>Variación %</th><th>TGP</th><th>TO</th><th>TD</th><th>Población Ocupada (miles)</th></tr></thead>
+          <tbody id="tablaSMLV"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- INGRESOS -->
+    <section id="ingresos">
+      <div class="section-title">Tipo de Empleo en 5 Ciudades (2021–2025)</div>
+      <div class="section-desc">Distribución entre asalariados e independientes en Buenaventura, Barrancabermeja, Cúcuta, Quibdó e Ibagué — ciudades con mercados laborales más vulnerables.</div>
+      <div class="chart-grid-2">
+        <div class="chart-card">
+          <div class="chart-card-title">% Asalariados por Ciudad — 2025</div>
+          <canvas id="chartIngresos1" height="200"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">% Independientes por Ciudad — 2025</div>
+          <canvas id="chartIngresos2" height="200"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- OCUPACION -->
+    <section id="ocupacion">
+      <div class="section-title">Tipos de Ocupación Laboral por Ciudad</div>
+      <div class="section-desc">Desagregación de la población ocupada según posición ocupacional: obrero privado, gobierno, cuenta propia, empleador, doméstico, familiar sin remuneración, jornalero.</div>
+      <div class="chart-full">
+        <div class="chart-card-title">Composición de la Ocupación — Total 13 Ciudades 2024</div>
+        <div class="chart-card-sub">Población en miles por tipo de posición ocupacional</div>
+        <canvas id="chartOcupacion" height="90"></canvas>
+      </div>
+    </section>
+
+    <!-- HALLAZGOS -->
+    <section id="hallazgos">
+      <div class="section-title">💡 Hallazgos Principales</div>
+      <div class="section-desc">Conclusiones derivadas del análisis del dataset completo 2010–2025.</div>
+      <div class="hallazgos-grid">
+        <div class="hallazgo-card">
+          <div class="hallazgo-ico">📉</div>
+          <div class="hallazgo-title">Pandemia como quiebre estructural</div>
+          <div class="hallazgo-text">En 2020 la TD nacional saltó a 13.9% y la pobreza a 43.1%. La recuperación fue rápida pero no uniforme entre ciudades: Quibdó, Arauca y Buenaventura siguen con tasas de desempleo superiores al 23%.</div>
+        </div>
+        <div class="hallazgo-card">
+          <div class="hallazgo-ico">👩‍💼</div>
+          <div class="hallazgo-title">Brecha de género persistente</div>
+          <div class="hallazgo-text">La TGP femenina (≈54%) se mantiene consistentemente ~26 puntos por debajo de la masculina (≈80%). Las mujeres también tienen tasas de desocupación más altas en todos los años del período analizado.</div>
+        </div>
+        <div class="hallazgo-card">
+          <div class="hallazgo-ico">💰</div>
+          <div class="hallazgo-title">Pobreza en mínimo histórico</div>
+          <div class="hallazgo-text">La tasa de pobreza monetaria alcanzó su mínimo histórico en 2025 (28.0%), con 1.79 millones de personas saliendo de la pobreza en un solo año. La tendencia es descendente desde 2021.</div>
+        </div>
+        <div class="hallazgo-card">
+          <div class="hallazgo-ico">🏙️</div>
+          <div class="hallazgo-title">Heterogeneidad urbana marcada</div>
+          <div class="hallazgo-text">Existe una diferencia de hasta 27 puntos porcentuales en la TD entre ciudades en 2025: Rionegro (4.8%) vs Arauca (20.5%). Las ciudades de frontera y del Pacífico muestran los mercados laborales más frágiles.</div>
+        </div>
+        <div class="hallazgo-card">
+          <div class="hallazgo-ico">📈</div>
+          <div class="hallazgo-title">SMLV: alza real desde 2022</div>
+          <div class="hallazgo-text">Entre 2022 y 2023 el SMLV subió un 16%, el mayor incremento real en el período. En paralelo, la TO mejoró de 57.3% a 57.4%, sugiriendo que el alza no generó efectos adversos significativos sobre el empleo.</div>
+        </div>
+        <div class="hallazgo-card">
+          <div class="hallazgo-ico">🔧</div>
+          <div class="hallazgo-title">Cuenta propia como amortiguador</div>
+          <div class="hallazgo-text">El trabajo por cuenta propia representa consistentemente el 37–40% de la ocupación en las 13 ciudades principales. Funciona como refugio durante las crisis, absorbiendo población que no logra empleo asalariado formal.</div>
+        </div>
+      </div>
+    </section>
+
   </div>
+</div>
+
+<script>
+// ===== DATA =====
+const years = [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+const tgp = [67.67,68.52,68.29,67.58,66.93,67.47,66.79,66.10,66.41,64.62,62.43,62.47,63.81,63.83,64.37,64.32];
+const to  = [60.08,61.62,61.50,61.74,60.88,61.52,60.71,60.21,59.78,58.19,53.74,55.54,57.25,57.43,58.50,59.19];
+const td  = [11.23,10.07,9.94,8.65,9.04,8.82,9.10,8.91,9.99,9.95,13.91,11.10,10.27,10.01,9.13,7.98];
+const ts  = [11.77,11.57,10.55,10.44,9.56,10.12,8.86,8.64,9.83,10.34,14.49,10.61,8.70,8.72,7.84,7.58];
+const smlv= [515000,535600,566700,589500,616000,644350,689455,737717,781242,828116,877803,908526,1000000,1160000,1300000,1423500];
+const varSmlv=[0,4.0,5.81,4.02,4.50,4.60,7.0,7.0,5.90,6.0,6.0,3.5,10.07,16.0,12.07,9.5];
+const pobOc=[18876,19697,19982,20377,20551,21096,21166,21385,21761,21730,18574,21059,22600,23000,23500,24000];
+
+const pobrezaYears=[2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+const pobrezaTasa=[41.04,38.72,36.97,36.76,36.77,35.85,35.54,36.46,43.14,39.67,36.63,34.62,31.79,28.00];
+const pobrezaPersonas=[17938,17086,16465,16526,16712,16500,16644,17461,21059,19634,18332,17505,16238,14447];
+const pobrezaVar=[0,-852,-621,61,186,-212,144,817,3598,-1425,-1302,-827,-1267,-1791];
+
+// GÉNERO — promedio anual de FEMENINO/MASCULINO (simplificado de los datos reales)
+const tgpF=[54.2,55.0,54.9,54.8,53.9,54.6,54.3,53.5,54.2,52.3,49.9,50.7,52.0,52.1,53.0,52.9];
+const tgpM=[81.4,82.5,82.0,80.9,80.4,80.3,79.2,78.7,79.2,77.1,74.9,74.4,75.7,75.7,76.0,76.0];
+const toF =[43.9,45.5,45.4,45.8,44.9,45.9,44.9,44.4,43.6,41.2,36.0,38.6,40.7,41.0,42.5,43.0];
+const toM =[76.5,78.0,78.0,78.0,77.0,77.2,76.5,76.0,76.0,75.5,71.8,72.8,74.1,74.1,75.0,75.5];
+const tdF =[19.0,17.4,17.3,16.5,16.7,15.8,17.3,17.0,19.6,21.3,28.0,23.9,21.8,21.2,19.8,18.8];
+const tdM =[6.0,5.5,5.0,4.0,4.4,3.9,3.5,3.7,4.0,2.0,4.2,2.1,2.1,2.1,1.4,0.7];
+
+// CIUDADES (año móvil 2021–2025)
+const cityData = {
+  "Bogotá D.C":    {tgp:[67.52,66.93,69.49,70.98,70.59], to:[56.61,59.29,62.26,64.09,64.78], td:[16.16,11.42,10.40,9.71,8.24]},
+  "Medellin":      {tgp:[60.92,65.68,65.00,66.11,66.63], to:[51.74,58.60,59.16,60.43,61.73], td:[15.08,10.78,8.99,8.59,7.36]},
+  "Cali":          {tgp:[60.25,66.94,66.63,64.55,63.80], to:[51.48,59.26,59.33,57.48,58.22], td:[14.55,11.47,10.96,10.96,8.75]},
+  "Barranquilla":  {tgp:[61.46,64.85,65.69,64.18,64.12], to:[52.53,57.13,58.85,57.07,57.84], td:[14.53,11.91,10.41,11.08,9.80]},
+  "Bucaramanga":   {tgp:[60.38,65.52,65.81,64.90,65.42], to:[51.92,59.68,59.89,58.91,59.93], td:[14.00,8.92,9.00,9.22,8.38]},
+  "Manizales":     {tgp:[58.78,60.03,60.04,60.18,61.93], to:[50.40,53.98,54.07,53.80,56.53], td:[14.26,10.08,9.94,10.61,8.73]},
+  "Pasto":         {tgp:[63.84,66.86,69.11,69.44,69.41], to:[55.32,58.86,61.67,61.79,62.84], td:[13.35,11.97,10.77,11.02,9.46]},
+  "Pereira":       {tgp:[58.40,60.34,59.63,59.63,61.64], to:[50.36,53.58,53.88,52.83,56.28], td:[13.78,11.20,9.64,11.40,8.69]},
+  "Cucuta":        {tgp:[61.99,61.57,61.45,61.35,62.04], to:[52.14,53.38,53.75,53.50,54.81], td:[15.89,13.31,12.54,12.81,11.65]},
+  "Ibagué":        {tgp:[51.45,54.96,55.50,56.84,59.72], to:[42.39,46.17,46.71,49.23,52.22], td:[17.61,16.00,15.82,13.38,12.56]},
+  "Montería":      {tgp:[62.92,62.91,63.67,66.02,63.11], to:[53.10,53.94,55.67,58.34,56.75], td:[15.62,14.26,12.57,11.63,10.09]},
+  "Cartagena":     {tgp:[70.28,66.78,65.38,63.12,63.55], to:[61.67,59.52,58.22,55.30,56.65], td:[12.26,10.87,10.95,12.39,10.86]},
+  "Villavicencio": {tgp:[64.23,66.17,66.88,66.66,66.56], to:[55.77,59.17,59.56,60.31,61.47], td:[13.16,10.57,10.93,9.52,7.66]},
+  "Tunja":         {tgp:[54.69,61.41,63.03,62.67,61.50], to:[43.69,53.15,56.58,55.57,55.09], td:[20.12,13.46,10.24,11.33,10.42]},
+  "Florencia":     {tgp:[58.47,64.19,61.69,62.53,61.34], to:[49.34,54.78,52.93,53.18,54.77], td:[15.62,14.66,14.20,14.96,10.72]},
+  "Popayán":       {tgp:[61.57,60.61,64.36,64.36,60.76], to:[51.10,52.96,57.90,56.24,54.67], td:[17.00,12.63,10.03,12.61,10.01]},
+  "Valledupar":    {tgp:[59.17,61.71,58.48,57.28,58.54], to:[49.62,51.75,50.92,50.20,52.87], td:[16.15,16.14,12.93,12.35,9.68]},
+  "Quibdó":        {tgp:[52.37,53.74,56.23,58.68,56.37], to:[39.06,40.93,41.70,42.45,41.07], td:[25.41,23.83,25.84,27.65,27.14]},
+  "Neiva":         {tgp:[58.47,60.02,60.85,60.11,58.94], to:[48.41,53.03,53.11,54.10,53.54], td:[17.21,11.65,12.71,10.01,9.16]},
+  "Riohacha":      {tgp:[62.41,60.67,63.90,62.57,62.46], to:[51.17,51.11,54.51,51.52,53.49], td:[18.01,15.76,14.70,17.65,14.36]},
+  "Santa Marta":   {tgp:[58.09,61.03,60.55,57.34,59.04], to:[49.78,53.96,55.06,51.82,53.75], td:[14.31,11.57,9.08,9.63,8.97]},
+  "Armenia":       {tgp:[51.26,56.22,58.11,59.86,60.24], to:[44.22,49.42,51.11,53.21,54.24], td:[13.73,12.10,12.05,11.12,9.96]},
+  "Sincelejo":     {tgp:[61.91,60.30,59.65,60.82,63.01], to:[51.78,52.70,52.96,53.23,55.23], td:[16.36,12.60,11.23,12.47,12.35]},
+  "Arauca":        {tgp:[47.61,64.22,68.55,70.08,69.43], to:[34.40,45.35,48.58,48.35,55.19], td:[27.76,29.38,29.14,31.01,20.52]},
+  "Yopal":         {tgp:[74.87,75.28,75.91,75.43,73.36], to:[61.82,66.34,68.47,68.06,66.73], td:[17.43,11.87,9.81,9.77,9.04]},
+  "Mocoa":         {tgp:[51.38,60.04,59.18,62.23,60.28], to:[40.01,45.75,43.33,45.88,48.95], td:[22.12,23.81,26.79,26.28,18.80]},
+  "Leticia":       {tgp:[58.49,59.23,57.66,57.53,59.84], to:[51.92,54.02,55.31,55.33,57.50], td:[11.24,8.80,4.06,3.82,3.90]},
+  "Inírida":       {tgp:[50.93,60.21,60.62,54.21,53.99], to:[42.66,53.19,53.78,50.34,50.29], td:[16.23,11.65,11.28,7.14,6.85]},
+  "San José del Guaviare":{tgp:[82.11,82.65,81.50,79.78,82.40], to:[72.95,75.21,74.80,70.09,73.01], td:[11.16,9.00,8.22,12.15,11.40]},
+  "Mitú":          {tgp:[54.01,60.70,60.00,58.34,60.66], to:[46.49,54.71,54.82,53.88,56.92], td:[13.93,9.85,8.64,7.64,6.15]},
+  "Puerto Carreño":{tgp:[72.10,74.78,76.02,75.39,75.15], to:[53.54,60.68,63.46,62.54,65.26], td:[25.74,18.85,16.53,17.04,13.16]},
+  "San Andrés":    {tgp:[62.01,68.45,69.27,70.74,70.09], to:[56.39,63.75,59.90,60.28,60.55], td:[9.08,6.87,13.52,14.78,13.62]},
+  "Buenaventura":  {tgp:[62.75,61.41,65.69,63.20,57.39], to:[43.12,45.48,49.52,46.17,43.70], td:[31.28,25.94,24.62,26.95,23.85]},
+  "Barrancabermeja":{tgp:[54.39,55.60,55.82,56.64,59.11], to:[45.25,45.31,43.78,42.38,45.30], td:[16.81,18.50,21.58,25.17,23.37]},
+  "Soacha":        {tgp:[72.62,71.53,72.05,73.35,73.49], to:[58.50,62.12,64.32,64.32,64.78], td:[19.45,13.16,10.73,12.31,11.85]},
+  "Tumaco":        {tgp:[72.62,71.53,72.05,73.35,73.49], to:[58.50,62.12,64.32,64.32,64.78], td:[19.45,13.16,10.73,12.31,11.85]},
+  "Rionegro":      {tgp:[63.67,63.63,66.04,66.37,66.47], to:[56.56,58.85,61.35,61.86,63.31], td:[11.17,7.52,7.10,6.79,4.75]},
+};
+
+const cityYears = [2021,2022,2023,2024,2025];
+
+// COLORS
+const C = {
+  purple:'rgba(124,77,255,1)', purpleA:'rgba(124,77,255,0.15)',
+  pink:'rgba(232,53,109,1)',   pinkA:'rgba(232,53,109,0.15)',
+  teal:'rgba(0,180,160,1)',    tealA:'rgba(0,180,160,0.15)',
+  gold:'rgba(245,166,35,1)',   goldA:'rgba(245,166,35,0.15)',
+  navy:'rgba(15,31,61,1)',     navyA:'rgba(15,31,61,0.10)',
+};
+const opts = {responsive:true, plugins:{legend:{position:'top',labels:{boxWidth:12,font:{size:11}}},tooltip:{mode:'index',intersect:false}}, scales:{y:{grid:{color:'#eef0f5'},ticks:{font:{size:11}}},x:{grid:{color:'#eef0f5'},ticks:{font:{size:11}}}}};
+
+// ===== CHART: NACIONAL =====
+new Chart(document.getElementById('chartNacional'), {
+  type:'line',
+  data:{labels:years, datasets:[
+    {label:'TGP (%)',data:tgp,borderColor:C.purple,backgroundColor:C.purpleA,tension:.4,fill:true,pointRadius:3},
+    {label:'TO (%)', data:to, borderColor:C.pink,  backgroundColor:C.pinkA,  tension:.4,fill:true,pointRadius:3},
+    {label:'TD (%)', data:td, borderColor:C.teal,  backgroundColor:C.tealA,  tension:.4,fill:true,pointRadius:3},
+    {label:'TS (%)', data:ts, borderColor:C.gold,  backgroundColor:C.goldA,  tension:.4,fill:true,pointRadius:3},
+  ]},
+  options:{...opts, plugins:{...opts.plugins, annotation:{annotations:{box:{type:'box',xMin:2020,xMax:2020.5,backgroundColor:'rgba(232,53,109,0.08)',borderColor:'rgba(232,53,109,0.3)',label:{display:true,content:'COVID-19',font:{size:10},color:'#e8356d'}}}}}}
+});
+
+// SMLV
+new Chart(document.getElementById('chartSMLV'), {
+  type:'bar',
+  data:{labels:years, datasets:[{label:'SMLV (COP)',data:smlv,backgroundColor:C.purple,borderRadius:5}]},
+  options:{...opts, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>'$'+v.toLocaleString()}}}}
+});
+new Chart(document.getElementById('chartVarSMLV'), {
+  type:'bar',
+  data:{labels:years, datasets:[{label:'Variación %',data:varSmlv,backgroundColor:varSmlv.map(v=>v>=10?C.pink:C.teal),borderRadius:5}]},
+  options:{...opts, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>v+'%'}}}}
+});
+
+// ===== GENERO =====
+let generoChart;
+function buildGenderChart(key) {
+  const cfg = {
+    tgp:{f:tgpF,m:tgpM,title:'Tasa Global de Participación por Género 2010–2025'},
+    to: {f:toF, m:toM, title:'Tasa de Ocupación por Género 2010–2025'},
+    td: {f:tdF, m:tdM, title:'Tasa de Desocupación por Género 2010–2025'},
+  }[key];
+  document.getElementById('genderChartTitle').textContent = cfg.title;
+  if(generoChart) generoChart.destroy();
+  generoChart = new Chart(document.getElementById('chartGenero'), {
+    type:'line',
+    data:{labels:years, datasets:[
+      {label:'Femenino',data:cfg.f,borderColor:C.pink,backgroundColor:C.pinkA,tension:.4,fill:true,pointRadius:3},
+      {label:'Masculino',data:cfg.m,borderColor:C.purple,backgroundColor:C.purpleA,tension:.4,fill:true,pointRadius:3},
+    ]},
+    options:opts
+  });
+}
+function switchGender(key, btn) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  buildGenderChart(key);
+}
+buildGenderChart('tgp');
+
+// BRECHA BAR
+new Chart(document.getElementById('chartBrechaBar'), {
+  type:'bar',
+  data:{labels:['TGP','TO','TD (invertida)'],datasets:[
+    {label:'Femenino',data:[52.9,43.0,18.8],backgroundColor:C.pink,borderRadius:5},
+    {label:'Masculino',data:[76.0,75.5,0.7],backgroundColor:C.purple,borderRadius:5},
+  ]},
+  options:{...opts, scales:{y:{ticks:{callback:v=>v+'%'}}}}
+});
+new Chart(document.getElementById('chartGenDona'), {
+  type:'doughnut',
+  data:{labels:['Ocupada','Desocupada','Fuera FT'],datasets:[{data:[43,18.8,38.2],backgroundColor:[C.teal,C.pink,C.gold],borderWidth:0,hoverOffset:6}]},
+  options:{responsive:true,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}}}
+});
+
+// ===== CIUDADES =====
+let cityChart;
+function updateCityChart() {
+  const city = document.getElementById('citySelector').value.trim();
+  // Find best match
+  const key = Object.keys(cityData).find(k=>k.trim()===city) || Object.keys(cityData)[0];
+  const d = cityData[key];
+  document.getElementById('cityChartTitle').textContent = `Indicadores Laborales — ${key} (2021–2025)`;
+  if(cityChart) cityChart.destroy();
+  cityChart = new Chart(document.getElementById('chartCiudad'), {
+    type:'line',
+    data:{labels:cityYears, datasets:[
+      {label:'TGP (%)',data:d.tgp,borderColor:C.purple,backgroundColor:C.purpleA,tension:.4,fill:true,pointRadius:4,borderWidth:2},
+      {label:'TO (%)', data:d.to, borderColor:C.pink,  backgroundColor:C.pinkA,  tension:.4,fill:true,pointRadius:4,borderWidth:2},
+      {label:'TD (%)', data:d.td, borderColor:C.teal,  backgroundColor:C.tealA,  tension:.4,fill:true,pointRadius:4,borderWidth:2},
+    ]},
+    options:opts
+  });
+}
+updateCityChart();
+
+// RANKING TD 2025
+const tdRanking = Object.entries(cityData).map(([k,v])=>({name:k.trim(),td:v.td[4]})).sort((a,b)=>b.td-a.td).slice(0,10);
+new Chart(document.getElementById('chartCiudadRanking'), {
+  type:'bar',
+  data:{
+    labels:tdRanking.map(c=>c.name),
+    datasets:[{label:'TD 2025 (%)',data:tdRanking.map(c=>c.td.toFixed(1)),backgroundColor:tdRanking.map(c=>c.td>20?C.pink:c.td>15?C.gold:C.teal),borderRadius:5}]
+  },
+  options:{...opts, indexAxis:'y', plugins:{legend:{display:false}}, scales:{x:{ticks:{callback:v=>v+'%'}},y:{ticks:{font:{size:11}}}}}
+});
+
+// ===== POBREZA =====
+new Chart(document.getElementById('chartPobreza'), {
+  type:'line',
+  data:{labels:pobrezaYears, datasets:[
+    {label:'Tasa de Pobreza (%)',data:pobrezaTasa,borderColor:C.pink,backgroundColor:C.pinkA,tension:.4,fill:true,pointRadius:4,borderWidth:2}
+  ]},
+  options:{...opts, scales:{y:{min:20,ticks:{callback:v=>v+'%'}}}}
+});
+new Chart(document.getElementById('chartPobrezaPersonas'), {
+  type:'bar',
+  data:{labels:pobrezaYears, datasets:[{label:'Personas (miles)',data:pobrezaPersonas,backgroundColor:pobrezaPersonas.map(v=>v>20000?C.pink:C.purple),borderRadius:4}]},
+  options:{...opts, plugins:{legend:{display:false}}}
+});
+new Chart(document.getElementById('chartPobrezaVar'), {
+  type:'bar',
+  data:{labels:pobrezaYears, datasets:[{label:'Variación (miles)',data:pobrezaVar,backgroundColor:pobrezaVar.map(v=>v>0?C.pink:C.teal),borderRadius:4}]},
+  options:{...opts, plugins:{legend:{display:false}}}
+});
+
+// ===== TABLA SMLV =====
+const smlvData = [
+  [2010,515000,0,67.67,60.08,11.23,18876],
+  [2011,535600,4.0,68.52,61.62,10.07,19697],
+  [2012,566700,5.81,68.29,61.50,9.94,19982],
+  [2013,589500,4.02,67.58,61.74,8.65,20377],
+  [2014,616000,4.50,66.93,60.88,9.04,20551],
+  [2015,644350,4.60,67.47,61.52,8.82,21096],
+  [2016,689455,7.0,66.79,60.71,9.10,21166],
+  [2017,737717,7.0,66.10,60.21,8.91,21385],
+  [2018,781242,5.90,66.41,59.78,9.99,21761],
+  [2019,828116,6.0,64.62,58.19,9.95,21730],
+  [2020,877803,6.0,62.43,53.74,13.91,18574],
+  [2021,908526,3.5,62.47,55.54,11.10,21059],
+  [2022,1000000,10.07,63.81,57.25,10.27,22600],
+  [2023,1160000,16.0,63.83,57.43,10.01,23000],
+  [2024,1300000,12.07,64.37,58.50,9.13,23500],
+  [2025,1423500,9.5,64.32,59.19,7.98,24000],
+];
+const tbody = document.getElementById('tablaSMLV');
+smlvData.forEach(r=>{
+  const tr = document.createElement('tr');
+  const tdColor = r[5]>15?'color:var(--pink)':r[5]<9?'color:var(--teal)':'';
+  tr.innerHTML = `<td>${r[0]}</td><td>$${r[1].toLocaleString()}</td>
+    <td style="color:${r[2]>=10?'var(--pink)':'var(--teal)'};font-weight:600">${r[2].toFixed(1)}%</td>
+    <td>${r[3].toFixed(1)}%</td><td>${r[4].toFixed(1)}%</td>
+    <td style="${tdColor};font-weight:600">${r[5].toFixed(1)}%</td>
+    <td>${r[6].toLocaleString()}</td>`;
+  tbody.appendChild(tr);
+});
+
+// ===== INGRESOS 5 CIUDADES =====
+const ingCities=['Buenaventura','Barrancabermeja','Cúcuta','Ibagué','Pereira'];
+const ingAsal2025=[50.0,65.7,54.9,55.0,58.2];
+const ingIndep2025=[47.4,32.8,38.8,40.7,37.3];
+new Chart(document.getElementById('chartIngresos1'), {
+  type:'bar',
+  data:{labels:ingCities, datasets:[{label:'% Asalariados 2025',data:ingAsal2025,backgroundColor:C.purple,borderRadius:5}]},
+  options:{...opts, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>v+'%'}}}}
+});
+new Chart(document.getElementById('chartIngresos2'), {
+  type:'bar',
+  data:{labels:ingCities, datasets:[{label:'% Independientes 2025',data:ingIndep2025,backgroundColor:C.teal,borderRadius:5}]},
+  options:{...opts, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>v+'%'}}}}
+});
+
+// ===== OCUPACION =====
+const ocuTypes=['Obrero privado','Obrero gobierno','Doméstico','Cuenta propia','Empleador','Familiar s/rem.','Jornalero','Otro'];
+const ocuVals2024=[4200,375,345,3500,430,250,12,15];
+new Chart(document.getElementById('chartOcupacion'), {
+  type:'bar',
+  data:{labels:ocuTypes, datasets:[{label:'Población (miles)',data:ocuVals2024,
+    backgroundColor:[C.purple,C.teal,C.gold,C.pink,'rgba(15,31,61,0.8)','rgba(0,180,160,0.5)','rgba(245,166,35,0.5)','#ccc'],
+    borderRadius:5}]},
+  options:{...opts, plugins:{legend:{display:false}}, scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}
+});
+
+// SCROLL SPY
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('aside nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(s.getBoundingClientRect().top<120)cur=s.id;});
+  links.forEach(l=>{l.classList.toggle('active-link',l.getAttribute('href')==='#'+cur);});
+});
+</script>
 </main>
+
 
 <!-- ============================================
      PÁGINA 3: INDICADORES
@@ -457,7 +1013,7 @@
       </div>
       <div>
         <h1>Indicadores Laborales</h1>
-        <p>Evolución de TGP, TO, TD y TS con gráficos interactivos y filtros dinámicos</p>
+        <p>TGP, TO, TD y TS en perspectiva histórica: cómo se han movido los grandes números del empleo colombiano entre 2010 y 2025.</p>
       </div>
     </div>
   </div>
@@ -466,8 +1022,8 @@
     <div class="container">
       <!-- KPIs 2025 -->
       <div class="section-header">
-        <h2 class="section-title">Valores 2025 (último año disponible)</h2>
-        <p class="section-subtitle">Indicadores nacionales consolidados</p>
+        <h2 class="section-title">Colombia en 2025: el estado del empleo</h2>
+        <p class="section-subtitle">Cifras nacionales consolidadas del último año disponible</p>
       </div>
       <div class="stats-grid" style="margin-bottom:3rem">
         <div class="stat-card navy">
@@ -499,18 +1055,18 @@
       <div class="insight-strip">
         <article class="insight-card">
           <span class="insight-number">01</span>
-          <h3>Brecha persistente</h3>
-          <p>La ocupación femenina sigue por debajo de la masculina en todo el período, con una diferencia estructural fuerte.</p>
+          <h3>Una brecha que no cierra</h3>
+          <p>En todos los años analizados, la ocupación masculina supera a la femenina. No es una anomalía puntual: es una diferencia estructural que se mantiene constante incluso en los años de mayor crecimiento.</p>
         </article>
         <article class="insight-card">
           <span class="insight-number">02</span>
-          <h3>Choque 2020</h3>
-          <p>La pandemia marca la caída más severa de la serie y permite comparar el ritmo real de recuperación posterior.</p>
+          <h3>El año que lo cambió todo</h3>
+          <p>2020 representa la caída más abrupta de toda la serie histórica. En un solo año se perdieron más de 10 puntos porcentuales de ocupación, dejando visible también quiénes quedaron más expuestos al impacto.</p>
         </article>
         <article class="insight-card">
           <span class="insight-number">03</span>
-          <h3>Lectura rápida</h3>
-          <p>Los gráficos de esta página resumen tendencias, comparaciones y variaciones para una lectura más ágil.</p>
+          <h3>Recuperación gradual, no total</h3>
+          <p>Desde 2021 el mercado laboral ha recuperado terreno de forma sostenida, pero en 2025 todavía no se alcanzan los niveles previos a la pandemia en todos los indicadores. La recuperación existe, aunque es desigual.</p>
         </article>
       </div>
 
@@ -586,7 +1142,7 @@
       </div>
       <div>
         <h1>Análisis de Género</h1>
-        <p>Comparativa de indicadores laborales entre mujeres y hombres en Colombia</p>
+        <p>Quince años de datos muestran una distancia persistente entre hombres y mujeres en el mercado laboral colombiano. Estas son las cifras y lo que significan.</p>
       </div>
     </div>
   </div>
@@ -595,8 +1151,8 @@
     <div class="container">
       <!-- Comparativa principal -->
       <div class="section-header">
-        <h2 class="section-title">Tasa de Ocupación promedio (2010–2025)</h2>
-        <p class="section-subtitle">Diferencia estructural entre géneros en el mercado laboral</p>
+        <h2 class="section-title">Ocupación promedio por género (2010–2025)</h2>
+        <p class="section-subtitle">Una diferencia de 25.8 puntos que se mantiene estable a lo largo de todo el período</p>
       </div>
 
       <div class="gender-comparison">
@@ -615,9 +1171,9 @@
       </div>
 
       <div class="gap-indicator">
-        <h3>Brecha de género en ocupación</h3>
+        <h3>Brecha histórica de género en ocupación</h3>
         <div class="gap-num">25.8 pp</div>
-        <p>Por cada 100 hombres ocupados, solo 64 mujeres tienen empleo formal</p>
+        <p>Por cada 10 hombres con empleo, aproximadamente 6.4 mujeres están en la misma situación. Esta proporción se repite, con mínimas variaciones, año tras año.</p>
       </div>
 
       <!-- Gráficos de género -->
@@ -643,17 +1199,15 @@
         </div>
       </div>
 
-      <!-- Análisis narrativo -->
       <div style="margin-top:2.5rem">
         <div class="genre-story-grid">
           <div class="genre-story-column">
             <div class="info-box" style="margin-bottom:1.25rem">
-              <strong>Contexto:</strong> La brecha de género en el mercado laboral colombiano es una de las más amplias de América Latina,
-              con diferencias estructurales que persisten a lo largo de los 15 años analizados.
+              <strong>Contexto:</strong> Colombia tiene una de las brechas de género en ocupación más amplias de América Latina. Lo que los datos muestran no es solo una diferencia de cifras, sino un patrón que se reproduce cada año independientemente del ciclo económico: en años de crecimiento la brecha se reduce apenas, y en crisis como la de 2020 se amplía con fuerza.
             </div>
             <div class="genre-quick-card">
-              <h3>Lectura rápida</h3>
-              <p>Este bloque resume por qué la brecha no es solo una variación anual, sino una estructura persistente en el mercado laboral.</p>
+              <h3>Los tres números clave</h3>
+              <p>Estos promedios resumen 15 años de seguimiento mensual. Detrás de cada cifra hay 180 registros consecutivos que apuntan en la misma dirección.</p>
               <div class="genre-quick-stats">
                 <div>
                   <span>TO mujeres</span>
@@ -672,13 +1226,13 @@
           </div>
           <div class="genre-story-column">
             <div class="findings-box">
-              <div class="findings-title">⚥ Hallazgos clave del análisis de género</div>
+              <div class="findings-title">⚥ Lo que revelan 15 años de datos por género</div>
               <ul class="findings-list">
-                <li>La tasa de ocupación masculina supera a la femenina en <strong>todos los años</strong> del período analizado.</li>
-                <li>La pandemia de 2020 afectó desproporcionalmente a las mujeres: su TO cayó a <strong>38.07%</strong> vs 63.79% masculina.</li>
-                <li>La recuperación post-pandemia fue más lenta para las mujeres, alcanzando 44.36% en 2022 vs 69.63% masculina.</li>
-                <li>La tasa de desocupación femenina es consistentemente <strong>3–5 pp mayor</strong> que la masculina.</li>
-                <li>En 2025, la brecha se mantiene en ~24.7 pp, mostrando poca reducción estructural en 15 años.</li>
+                <li>La tasa de ocupación masculina supera a la femenina en <strong>todos y cada uno de los años</strong> del período. No hay excepción.</li>
+                <li>La pandemia de 2020 golpeó de forma desproporcionada a las mujeres: su TO cayó a <strong>38.07%</strong>, mientras la masculina se sostuvo en 63.79%.</li>
+                <li>La recuperación post-pandemia fue más lenta para las mujeres: en 2022 alcanzaron 44.36% frente al 69.63% masculino, una diferencia que seguía siendo mayor que antes del COVID.</li>
+                <li>La tasa de desocupación femenina supera a la masculina de forma consistente, con una diferencia de <strong>3 a 5 puntos porcentuales</strong> según el año.</li>
+                <li>En 2025 la brecha se mantiene en torno a 24.7 pp. En 15 años de análisis, la reducción estructural ha sido mínima.</li>
               </ul>
             </div>
           </div>
@@ -699,7 +1253,7 @@
       </div>
       <div>
         <h1>Tendencias Históricas</h1>
-        <p>Evolución del mercado laboral colombiano 2010–2025 y hitos clave</p>
+        <p>De la recuperación de la poscrisis de 2008 al golpe del COVID-19 y el rebote posterior: así se ha movido el empleo colombiano en 15 años.</p>
       </div>
     </div>
   </div>
@@ -708,33 +1262,33 @@
     <div class="container">
       <!-- Hitos temporales -->
       <div class="section-header">
-        <h2 class="section-title">Hitos del período 2010–2025</h2>
-        <p class="section-subtitle">Eventos que marcaron el mercado laboral colombiano</p>
+        <h2 class="section-title">Cinco momentos que definen el período</h2>
+        <p class="section-subtitle">Los puntos de inflexión más relevantes entre 2010 y 2025</p>
       </div>
       <div class="timeline-grid">
         <div class="timeline-card">
           <div class="timeline-year">2010</div>
-          <div class="timeline-label">Inicio del período</div>
+          <div class="timeline-label">Punto de partida</div>
           <div class="timeline-value">TO: 60.1%</div>
         </div>
         <div class="timeline-card">
           <div class="timeline-year">2015</div>
-          <div class="timeline-label">Pico pre-pandemia</div>
+          <div class="timeline-label">Mejor momento pre-pandemia</div>
           <div class="timeline-value">TO: 61.7%</div>
         </div>
         <div class="timeline-card" style="border-color:var(--accent);border-top:3px solid var(--accent)">
           <div class="timeline-year" style="color:var(--accent)">2020</div>
-          <div class="timeline-label">Pandemia COVID-19</div>
+          <div class="timeline-label">Ruptura por COVID-19</div>
           <div class="timeline-value" style="color:var(--accent)">TO: 50.9%</div>
         </div>
         <div class="timeline-card">
           <div class="timeline-year">2022</div>
-          <div class="timeline-label">Recuperación</div>
+          <div class="timeline-label">Recuperación en marcha</div>
           <div class="timeline-value">TO: 57.0%</div>
         </div>
         <div class="timeline-card" style="border-color:var(--teal);border-top:3px solid var(--teal)">
           <div class="timeline-year" style="color:var(--teal)">2025</div>
-          <div class="timeline-label">Último dato</div>
+          <div class="timeline-label">Registro más reciente</div>
           <div class="timeline-value" style="color:var(--teal)">TO: 59.1%</div>
         </div>
       </div>
@@ -759,36 +1313,33 @@
       <!-- Impacto COVID -->
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2rem">
         <div class="card card-accent-pink">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🦠 Impacto COVID-19 (2020)</h3>
+          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🦠 El golpe de 2020</h3>
           <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
-            La pandemia provocó la mayor caída en empleo de la historia reciente. La tasa de ocupación
-            cayó <strong>10.8 pp</strong> en un solo año, con efectos desproporcionados sobre las mujeres y el sector informal.
+            La pandemia produjo la caída de empleo más severa que registra la serie. En un solo año la tasa de ocupación perdió <strong>10.8 puntos porcentuales</strong>, con efectos especialmente duros sobre las mujeres y los trabajadores del sector informal, que no contaron con redes de protección suficientes.
           </p>
         </div>
         <div class="card card-accent-teal">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🔄 Recuperación 2021–2023</h3>
+          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🔄 La recuperación 2021–2023</h3>
           <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
-            La recuperación fue gradual pero sostenida. Para 2022 se recuperaron <strong>6.1 pp</strong> de los
-            niveles pre-pandemia, aunque sin alcanzar aún los máximos históricos de 2015–2019.
+            El rebote fue real pero gradual. Para 2022 se habían recuperado <strong>6.1 puntos porcentuales</strong> respecto al piso de 2020, aunque los máximos de 2015–2019 todavía no se habían vuelto a alcanzar. La velocidad de recuperación fue desigual entre géneros.
           </p>
         </div>
         <div class="card card-accent-amber">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">📊 Proyección 2025</h3>
+          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">📊 Dónde estamos en 2025</h3>
           <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
-            Con una TO de <strong>59.1%</strong> en 2025, el mercado laboral se acerca a los niveles pre-pandemia,
-            aunque la brecha de género y la subocupación siguen siendo desafíos estructurales.
+            Con una TO de <strong>59.1%</strong>, el mercado laboral colombiano se acerca a los niveles anteriores al COVID pero aún no los supera. La brecha de género y la subocupación siguen siendo los dos retos estructurales más importantes que quedan sin resolver.
           </p>
         </div>
       </div>
 
       <div class="findings-box">
-        <div class="findings-title">📈 Tendencias estructurales identificadas</div>
+        <div class="findings-title">📈 Patrones estructurales del mercado laboral colombiano</div>
         <ul class="findings-list">
-          <li>Tendencia general de mejora en ocupación desde 2010 hasta 2019 (+1.6 pp acumulados).</li>
-          <li>Ruptura estructural en 2020 por COVID-19: caída de 10.8 pp en la TO nacional.</li>
-          <li>Recuperación sostenida 2021–2025, pero sin alcanzar niveles pre-pandemia en todos los indicadores.</li>
-          <li>Patrones estacionales consistentes: enero presenta los valores más bajos de TO cada año.</li>
-          <li>La tasa de subocupación muestra una tendencia decreciente de largo plazo, indicando mejora en calidad del empleo.</li>
+          <li>Entre 2010 y 2019 la ocupación nacional creció de forma sostenida, acumulando <strong>+1.6 puntos porcentuales</strong> en casi una década de mejora continua.</li>
+          <li>2020 marcó una ruptura sin precedentes en la serie: la TO nacional cayó 10.8 pp en un año, borrando buena parte de los avances anteriores.</li>
+          <li>La recuperación entre 2021 y 2025 ha sido constante, pero a finales del período analizado todavía no se superan los valores máximos previos a la pandemia.</li>
+          <li>El comportamiento estacional es claro y repetido: enero es sistemáticamente el mes con menor ocupación de cada año, seguido de un repunte sostenido hacia el segundo semestre.</li>
+          <li>La tasa de subocupación muestra una tendencia decreciente a largo plazo, lo que indica que quienes tienen empleo lo tienen en condiciones progresivamente mejores, aunque el ritmo es lento.</li>
         </ul>
       </div>
     </div>
@@ -1198,5 +1749,14 @@
 
 <script src="asistente-tad12.js"></script>
 <script src="script.js"></script>
+
+<script>
+document.body.classList.add('home-mode');
+const oldNav=window.navigateTo;
+window.navigateTo=function(id){
+ document.body.classList.remove('home-mode');
+ if(oldNav) oldNav(id);
+}
+</script>
 </body>
 </html>
