@@ -13,160 +13,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
-<style>
-body.home-mode .header{display:none!important}
-.section-launch{padding:3rem 0;background:#eef5fb}
-.launch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
-.launch-card{background:#fff;border-radius:16px;padding:20px;cursor:pointer;transition:.3s;box-shadow:0 8px 18px rgba(0,0,0,.1)}
-.launch-card:hover{transform:translateY(-6px)} .launch-card p{opacity:0;max-height:0;overflow:hidden;transition:.3s}.launch-card:hover p{opacity:1;max-height:80px}
-</style>
-<style>
-  :root {
-    --navy: #0f1f3d;
-    --navy-light: #1a3260;
-    --pink: #e8356d;
-    --teal: #00b4a0;
-    --gold: #f5a623;
-    --purple: #7c4dff;
-    --bg: #f4f7fb;
-    --white: #ffffff;
-    --text: #1a2540;
-    --muted: #6b7a99;
-    --border: #e2e8f0;
-    --card-shadow: 0 4px 24px rgba(15,31,61,0.09);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); }
-
-  /* LAYOUT */
-  .layout { display:grid; grid-template-columns: 200px 1fr; gap:28px; min-height:calc(100vh - 60px); }
-
-  /* SIDEBAR */
-  aside {
-    background:var(--white);
-    border-right:1px solid var(--border);
-    padding:22px 14px;
-    position:sticky; top:60px;
-    max-height:calc(100vh - 60px);
-    overflow-y:auto;
-    min-width:0;
-    scrollbar-width:thin;
-  }
-  aside .section-label { font-size:.65rem; font-weight:700; letter-spacing:.1em; color:var(--muted); text-transform:uppercase; margin-bottom:6px; }
-  aside nav a { display:flex; align-items:center; gap:6px; padding:5px 9px; border-radius:7px; font-size:.76rem; line-height:1.25; color:var(--text); text-decoration:none; margin-bottom:1px; transition:.15s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  aside nav a:hover { background:var(--bg); }
-  aside nav a.active-link { background:#e8f0fe; color:var(--navy); font-weight:600; }
-  .quickstats { margin-top:14px; background:var(--bg); border-radius:10px; padding:10px; }
-  .quickstats .qs-label { font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:1px; }
-  .quickstats .qs-val { font-size:.95rem; font-weight:700; color:var(--navy); margin-bottom:7px; }
-  .back-to-top { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:10px; padding:7px 10px; border-radius:8px; background:var(--navy); color:#fff; font-size:.76rem; font-weight:600; text-decoration:none; transition:.15s; }
-  .back-to-top:hover { background:var(--navy-light); }
-
-  /* MAIN */
-  #page-exploratorio { padding:36px 40px; max-width:1100px; }
-  .page-title { font-size:1.7rem; font-weight:800; color:var(--navy); margin-bottom:6px; }
-  .page-subtitle { color:var(--muted); font-size:.95rem; margin-bottom:36px; }
-  /* SECTIONS */
-  section { margin-bottom:56px; scroll-margin-top:80px; }
-  .section-title { font-size:1.25rem; font-weight:700; color:var(--navy); margin-bottom:6px; padding-bottom:10px; border-bottom:2px solid var(--border); }
-  .section-desc { color:var(--muted); font-size:.9rem; margin-bottom:20px; margin-top:4px; }
-</style>
-<style>
-  /* KPI CARDS */
-  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:8px; }
-  .kpi-card { background:var(--white); border-radius:14px; padding:20px; box-shadow:var(--card-shadow); border-top:3px solid var(--border); }
-  .kpi-card.tgp { border-color:var(--purple); }
-  .kpi-card.to  { border-color:var(--pink); }
-  .kpi-card.td  { border-color:var(--teal); }
-  .kpi-card.ts  { border-color:var(--gold); }
-  .kpi-icon { font-size:1.6rem; margin-bottom:8px; }
-  .kpi-name { font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:4px; }
-  .kpi-desc { font-size:.75rem; color:var(--muted); margin-bottom:12px; line-height:1.4; }
-  .kpi-val  { font-size:1.9rem; font-weight:800; }
-  .kpi-card.tgp .kpi-val { color:var(--purple); }
-  .kpi-card.to  .kpi-val { color:var(--pink); }
-  .kpi-card.td  .kpi-val { color:var(--teal); }
-  .kpi-card.ts  .kpi-val { color:var(--gold); }
-
-  /* COBERTURA TEMPORAL */
-  .cob-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-  .cob-card { border-radius:12px; padding:18px 16px; color:#fff; }
-  .cob-card:nth-child(1) { background:var(--navy); }
-  .cob-card:nth-child(2) { background:var(--navy-light); }
-  .cob-card:nth-child(3) { background:var(--pink); }
-  .cob-card:nth-child(4) { background:var(--teal); }
-  .cob-label { font-size:.72rem; opacity:.8; margin-bottom:4px; }
-  .cob-value { font-size:1.3rem; font-weight:800; }
-
-  /* CHARTS */
-  .chart-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-  .chart-card { background:var(--white); border-radius:14px; padding:24px; box-shadow:var(--card-shadow); }
-  .chart-card-title { font-size:.9rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
-  .chart-card-sub { font-size:.78rem; color:var(--muted); margin-bottom:16px; }
-  .chart-full { background:var(--white); border-radius:14px; padding:24px; box-shadow:var(--card-shadow); margin-bottom:24px; }
-
-  /* TABLA */
-  .table-wrap { overflow-x:auto; background:var(--white); border-radius:14px; box-shadow:var(--card-shadow); }
-  table { width:100%; border-collapse:collapse; font-size:.84rem; }
-  thead th { background:var(--navy); color:#fff; padding:12px 14px; text-align:left; font-size:.78rem; letter-spacing:.04em; text-transform:uppercase; }
-  tbody tr:nth-child(even) { background:#f8fafd; }
-  tbody td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text); }
-  .badge { display:inline-block; padding:2px 8px; border-radius:20px; font-size:.72rem; font-weight:600; }
-  .badge-num { background:#e8f0fe; color:#1a56db; }
-  .badge-txt { background:#e8faf5; color:#0e7a60; }
-
-  /* GENERO TABS */
-  .tabs { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
-  .tab { padding:7px 18px; border-radius:8px; border:1px solid var(--border); font-size:.84rem; cursor:pointer; background:var(--white); color:var(--muted); transition:.15s; }
-  .tab.active { background:var(--navy); color:#fff; border-color:var(--navy); font-weight:600; }
-
-  /* CIUDAD SELECT */
-  .city-select-row { display:flex; gap:10px; align-items:center; margin-bottom:18px; flex-wrap:wrap; }
-  select { padding:7px 14px; border:1px solid var(--border); border-radius:8px; font-size:.85rem; color:var(--text); background:var(--white); cursor:pointer; }
-
-  /* POBREZA */
-  .pobreza-highlight { display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
-  .ph-card { flex:1; min-width:160px; background:var(--white); border-radius:12px; padding:16px; box-shadow:var(--card-shadow); text-align:center; }
-  .ph-num  { font-size:1.7rem; font-weight:800; color:var(--pink); }
-  .ph-lbl  { font-size:.75rem; color:var(--muted); margin-top:2px; }
-
-  /* SMLV */
-  .smlv-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-
-  /* OCUPACION */
-  .ocu-legend { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
-  .ocu-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; }
-
-  /* HALLAZGOS */
-  .hallazgos-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  .hallazgo-card { background:var(--white); border-radius:14px; padding:22px; box-shadow:var(--card-shadow); border-left:4px solid var(--purple); }
-  .hallazgo-card:nth-child(2) { border-color:var(--teal); }
-  .hallazgo-card:nth-child(3) { border-color:var(--pink); }
-  .hallazgo-card:nth-child(4) { border-color:var(--gold); }
-  .hallazgo-card:nth-child(5) { border-color:var(--navy); }
-  .hallazgo-card:nth-child(6) { border-color:#e91e63; }
-  .hallazgo-ico { font-size:1.5rem; margin-bottom:8px; }
-  .hallazgo-title { font-weight:700; font-size:.95rem; margin-bottom:6px; color:var(--navy); }
-  .hallazgo-text { font-size:.83rem; color:var(--muted); line-height:1.55; }
-
-  /* ESTRUCTURA */
-  .estructura-table th:nth-child(1) { width:130px; }
-  .estructura-table th:nth-child(2) { width:100px; }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width:6px; height:6px; }
-  ::-webkit-scrollbar-track { background:var(--bg); }
-  ::-webkit-scrollbar-thumb { background:#c5cfe0; border-radius:3px; }
-
-  @media(max-width:900px){
-    .layout { grid-template-columns:1fr; }
-    aside { display:none; }
-    .kpi-grid, .cob-grid { grid-template-columns:1fr 1fr; }
-    .chart-grid-2, .hallazgos-grid, .smlv-grid { grid-template-columns:1fr; }
-    main { padding:20px; }
-  }
-</style>
 </head>
 <body>
 
@@ -231,19 +77,20 @@ body.home-mode .header{display:none!important}
   <section class="hero">
     <div class="container">
       <div class="hero-content">
+        <span class="hero-badge">TAD 12 · Datos laborales de Colombia</span>
         <h1 class="hero-title">Mercado Laboral<br>Colombiano</h1>
         <p class="hero-subtitle">
           Descubre cómo ha evolucionado el mercado laboral colombiano durante los últimos 15 años. Analiza indicadores de empleo, ocupación y desempleo, compara resultados entre mujeres y hombres, e identifica las principales tendencias que han marcado el país a través de visualizaciones interactivas y reportes dinámicos..
         </p>
         <div class="hero-buttons">
           <button class="btn btn-primary" onclick="navigateTo('page-exploratorio')">
-            🔍 Explorar datos
+            <img class="content-icon icon-inline" src="IMG/Utilidades/search.svg" alt=""> Explorar datos
           </button>
           <button class="btn btn-secondary" onclick="navigateTo('page-powerbi')">
-            📈 Ver Power BI
+            <img class="content-icon icon-inline" src="IMG/Utilidades/powerbi.svg" alt=""> Ver Power BI
           </button>
           <button class="btn btn-secondary" onclick="navigateTo('page-quienes-somos')">
-            👥 Conócenos
+            <img class="content-icon icon-inline" src="IMG/Utilidades/team.svg" alt=""> Conócenos
           </button>
         </div>
         <div class="hero-stats">
@@ -275,34 +122,34 @@ body.home-mode .header{display:none!important}
         <h2 class="section-title">¿Qué encontrarás aquí?</h2>
         <p class="section-subtitle">Navega por las diferentes secciones de la plataforma</p>
       </div>
-      <div class="stats-grid">
-        <div class="card card-accent-navy" style="cursor:pointer" onclick="navigateTo('page-exploratorio')">
-          <div style="font-size:2rem;margin-bottom:.75rem">🔍</div>
+      <div class="home-feature-grid stats-grid">
+        <div class="card home-feature-card card-accent-navy" style="cursor:pointer" onclick="navigateTo('page-exploratorio')">
+          <img class="content-icon" src="IMG/Utilidades/search.svg" alt="">
           <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Análisis Exploratorio</h3>
           <p style="font-size:.875rem;color:var(--text-secondary)">Descripción del dataset, variables principales y estructura de los datos.</p>
         </div>
-        <div class="card card-accent-pink" style="cursor:pointer" onclick="navigateTo('page-indicadores')">
-          <div style="font-size:2rem;margin-bottom:.75rem">📉</div>
+        <div class="card home-feature-card card-accent-pink" style="cursor:pointer" onclick="navigateTo('page-indicadores')">
+          <img class="content-icon" src="IMG/Utilidades/analytics.svg" alt="">
           <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Indicadores Laborales</h3>
           <p style="font-size:.875rem;color:var(--text-secondary)">TGP, TO, TD y TS con gráficos interactivos y filtros por año.</p>
         </div>
-        <div class="card card-accent-teal" style="cursor:pointer" onclick="navigateTo('page-genero')">
-          <div style="font-size:2rem;margin-bottom:.75rem">⚥</div>
+        <div class="card home-feature-card card-accent-teal" style="cursor:pointer" onclick="navigateTo('page-genero')">
+          <img class="content-icon" src="IMG/Utilidades/gender.svg" alt="">
           <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Análisis de Género</h3>
           <p style="font-size:.875rem;color:var(--text-secondary)">Comparativa femenino vs masculino y evolución de la brecha laboral.</p>
         </div>
-        <div class="card card-accent-amber" style="cursor:pointer" onclick="navigateTo('page-tendencias')">
-          <div style="font-size:2rem;margin-bottom:.75rem">📈</div>
+        <div class="card home-feature-card card-accent-amber" style="cursor:pointer" onclick="navigateTo('page-tendencias')">
+          <img class="content-icon" src="IMG/Utilidades/analytics.svg" alt="">
           <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Tendencias</h3>
           <p style="font-size:.875rem;color:var(--text-secondary)">Evolución histórica, impacto COVID-19 y proyecciones 2010–2025.</p>
         </div>
-        <div class="card" style="cursor:pointer;border-left:4px solid #7C3AED" onclick="navigateTo('page-powerbi')">
-          <div style="font-size:2rem;margin-bottom:.75rem">🟡</div>
+        <div class="card home-feature-card home-feature-purple" style="cursor:pointer" onclick="navigateTo('page-powerbi')">
+          <img class="content-icon" src="IMG/Utilidades/powerbi.svg" alt="">
           <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Dashboard Power BI</h3>
           <p style="font-size:.875rem;color:var(--text-secondary)">Reporte interactivo completo con todos los dashboards del análisis.</p>
         </div>
-        <div class="card" style="cursor:pointer;border-left:4px solid #059669" onclick="navigateTo('page-descargas')">
-          <div style="font-size:2rem;margin-bottom:.75rem">⬇️</div>
+        <div class="card home-feature-card home-feature-green" style="cursor:pointer" onclick="navigateTo('page-descargas')">
+          <img class="content-icon" src="IMG/Utilidades/file-spreadsheet.svg" alt="">
           <h3 style="font-size:1.1rem;color:var(--navy);margin-bottom:.5rem">Descargables</h3>
           <p style="font-size:.875rem;color:var(--text-secondary)">Datasets originales, reportes PDF y recursos del proyecto.</p>
         </div>
@@ -424,20 +271,20 @@ body.home-mode .header{display:none!important}
 <main id="page-exploratorio" class="page">
 <div class="layout">
   <aside>
-    <div class="section-label">Contenido</div>
+    <div class="exploratory-nav-header">
+      <div class="section-label">Ruta de lectura</div>
+      <p>Explora el dataset paso a paso</p>
+    </div>
     <nav>
-      <a href="#descripcion" class="active-link">📋 Descripción</a>
-      <a href="#variables">📌 Variables</a>
-      <a href="#cobertura">🗓️ Cobertura temporal</a>
-      <a href="#estructura">🏗️ Estructura</a>
-      <a href="#nacional">📈 Tendencia Nacional</a>
-      <a href="#genero">👥 Brecha de Género</a>
-      <a href="#ciudades">🏙️ Ciudades</a>
-      <a href="#pobreza">💰 Pobreza Monetaria</a>
-      <a href="#smlv">💼 SMLV & Mercado</a>
-      <a href="#ingresos">🏭 Ingresos por Ciudad</a>
-      <a href="#ocupacion">🔧 Ocupación Laboral</a>
-      <a href="#hallazgos">💡 Hallazgos</a>
+      <a href="#descripcion" class="active-link"><span class="section-number">01</span><span>Conoce los datos<small>Descripción general</small></span></a>
+      <a href="#variables"><span class="section-number">02</span><span>Identifica las variables<small>Indicadores principales</small></span></a>
+      <a href="#cobertura"><span class="section-number">03</span><span>Revisa el período<small>Cobertura temporal</small></span></a>
+      <a href="#estructura"><span class="section-number">04</span><span>Entiende la estructura<small>Campos y fuentes</small></span></a>
+      <a href="#nacional"><span class="section-number">05</span><span>Observa la tendencia<small>Serie nacional</small></span></a>
+      <a href="#genero"><span class="section-number">06</span><span>Compara por género<small>Brechas laborales</small></span></a>
+      <a href="#ciudades"><span class="section-number">07</span><span>Explora ciudades<small>Comparación territorial</small></span></a>
+      <a href="#pobreza"><span class="section-number">08</span><span>Consulta pobreza<small>Indicador monetario</small></span></a>
+      <a href="#hallazgos"><span class="section-number">09</span><span>Lee los hallazgos<small>Conclusiones clave</small></span></a>
     </nav>
     <div class="quickstats">
       <div class="qs-label">Total registros</div>
@@ -466,25 +313,25 @@ body.home-mode .header{display:none!important}
       <div class="section-desc">El dataset incluye cuatro indicadores laborales fundamentales, cada uno con desagregación por género:</div>
       <div class="kpi-grid">
         <div class="kpi-card tgp">
-          <div class="kpi-icon">👥</div>
+          <img class="content-icon kpi-icon" src="IMG/Utilidades/gender.svg" alt="">
           <div class="kpi-name">Tasa Global de Participación (TGP)</div>
           <div class="kpi-desc">Proporción de la fuerza de trabajo respecto a la población en edad de trabajar.</div>
           <div class="kpi-val">64.3%</div>
         </div>
         <div class="kpi-card to">
-          <div class="kpi-icon">💼</div>
+          <img class="content-icon kpi-icon" src="IMG/Utilidades/analytics.svg" alt="">
           <div class="kpi-name">Tasa de Ocupación (TO)</div>
           <div class="kpi-desc">Proporción de la población ocupada respecto a la población en edad de trabajar.</div>
           <div class="kpi-val">59.2%</div>
         </div>
         <div class="kpi-card td">
-          <div class="kpi-icon">🔍</div>
+          <img class="content-icon kpi-icon" src="IMG/Utilidades/search.svg" alt="">
           <div class="kpi-name">Tasa de Desocupación (TD)</div>
           <div class="kpi-desc">Proporción de desocupados respecto a la fuerza de trabajo activa.</div>
           <div class="kpi-val">8.0%</div>
         </div>
         <div class="kpi-card ts">
-          <div class="kpi-icon">⏱️</div>
+          <img class="content-icon kpi-icon" src="IMG/Utilidades/analytics.svg" alt="">
           <div class="kpi-name">Tasa de Subocupación (TS)</div>
           <div class="kpi-desc">Proporción de población subocupada respecto a la fuerza de trabajo.</div>
           <div class="kpi-val">7.9%</div>
@@ -552,18 +399,6 @@ body.home-mode .header{display:none!important}
         <div class="chart-card-sub">Promedio anual calculado desde datos mensuales del DANE</div>
         <canvas id="chartNacional" height="90"></canvas>
       </div>
-      <div class="chart-grid-2">
-        <div class="chart-card">
-          <div class="chart-card-title">Salario Mínimo (SMLV)</div>
-          <div class="chart-card-sub">Evolución en pesos colombianos 2010–2025</div>
-          <canvas id="chartSMLV" height="180"></canvas>
-        </div>
-        <div class="chart-card">
-          <div class="chart-card-title">Variación % Anual del SMLV</div>
-          <div class="chart-card-sub">Porcentaje de incremento año a año</div>
-          <canvas id="chartVarSMLV" height="180"></canvas>
-        </div>
-      </div>
     </section>
 
     <!-- GENERO -->
@@ -580,24 +415,12 @@ body.home-mode .header{display:none!important}
         <div class="chart-card-sub">Promedio anual · Desagregación por sexo</div>
         <canvas id="chartGenero" height="90"></canvas>
       </div>
-      <div class="chart-grid-2">
-        <div class="chart-card">
-          <div class="chart-card-title">Brecha TGP Femenino vs Masculino — 2025</div>
-          <div class="chart-card-sub">Diferencia de participación laboral por género</div>
-          <canvas id="chartBrechaBar" height="200"></canvas>
-        </div>
-        <div class="chart-card">
-          <div class="chart-card-title">Distribución promedio 2025 — Femenino</div>
-          <div class="chart-card-sub">Composición de la fuerza de trabajo femenina</div>
-          <canvas id="chartGenDona" height="200"></canvas>
-        </div>
-      </div>
     </section>
 
     <!-- CIUDADES -->
     <section id="ciudades">
       <div class="section-title">Mercado Laboral por Ciudad</div>
-      <div class="section-desc">37 ciudades monitoreadas. Selecciona una ciudad para ver su evolución 2021–2025 en los indicadores principales.</div>
+      <div class="section-desc">Selecciona una de las ciudades disponibles para revisar su evolución 2021–2025 en los indicadores principales. El análisis completo por ciudad está en la sección de indicadores.</div>
       <div class="city-select-row">
         <label style="font-size:.85rem;color:var(--muted)">Ciudad:</label>
         <select id="citySelector" onchange="updateCityChart()">
@@ -620,11 +443,6 @@ body.home-mode .header{display:none!important}
         <div class="chart-card-title" id="cityChartTitle">Indicadores Laborales — Bogotá D.C (2021–2025)</div>
         <canvas id="chartCiudad" height="90"></canvas>
       </div>
-      <div class="chart-full" style="margin-top:0">
-        <div class="chart-card-title">Ranking TD 2025 — Top 10 ciudades con mayor desempleo</div>
-        <div class="chart-card-sub">Ciudades con mayor Tasa de Desocupación en 2025</div>
-        <canvas id="chartCiudadRanking" height="100"></canvas>
-      </div>
     </section>
 
     <!-- POBREZA -->
@@ -641,89 +459,40 @@ body.home-mode .header{display:none!important}
         <div class="chart-card-title">Tasa de Pobreza Monetaria 2012–2025</div>
         <canvas id="chartPobreza" height="90"></canvas>
       </div>
-      <div class="chart-grid-2">
-        <div class="chart-card">
-          <div class="chart-card-title">Personas en pobreza (miles) 2012–2025</div>
-          <canvas id="chartPobrezaPersonas" height="200"></canvas>
-        </div>
-        <div class="chart-card">
-          <div class="chart-card-title">Variación anual de personas en pobreza (miles)</div>
-          <canvas id="chartPobrezaVar" height="200"></canvas>
-        </div>
-      </div>
-    </section>
-
-    <!-- SMLV -->
-    <section id="smlv">
-      <div class="section-title">SMLV y Fuerza de Trabajo Anual</div>
-      <div class="section-desc">Evolución del Salario Mínimo Legal Vigente y su relación con los indicadores del mercado laboral. El SMLV pasó de $515.000 en 2010 a $1.423.500 en 2025, un incremento del 176%.</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Año</th><th>SMLV</th><th>Variación %</th><th>TGP</th><th>TO</th><th>TD</th><th>Población Ocupada (miles)</th></tr></thead>
-          <tbody id="tablaSMLV"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- INGRESOS -->
-    <section id="ingresos">
-      <div class="section-title">Tipo de Empleo en 5 Ciudades (2021–2025)</div>
-      <div class="section-desc">Distribución entre asalariados e independientes en Buenaventura, Barrancabermeja, Cúcuta, Quibdó e Ibagué — ciudades con mercados laborales más vulnerables.</div>
-      <div class="chart-grid-2">
-        <div class="chart-card">
-          <div class="chart-card-title">% Asalariados por Ciudad — 2025</div>
-          <canvas id="chartIngresos1" height="200"></canvas>
-        </div>
-        <div class="chart-card">
-          <div class="chart-card-title">% Independientes por Ciudad — 2025</div>
-          <canvas id="chartIngresos2" height="200"></canvas>
-        </div>
-      </div>
-    </section>
-
-    <!-- OCUPACION -->
-    <section id="ocupacion">
-      <div class="section-title">Tipos de Ocupación Laboral por Ciudad</div>
-      <div class="section-desc">Desagregación de la población ocupada según posición ocupacional: obrero privado, gobierno, cuenta propia, empleador, doméstico, familiar sin remuneración, jornalero.</div>
-      <div class="chart-full">
-        <div class="chart-card-title">Composición de la Ocupación — Total 13 Ciudades 2024</div>
-        <div class="chart-card-sub">Población en miles por tipo de posición ocupacional</div>
-        <canvas id="chartOcupacion" height="90"></canvas>
-      </div>
     </section>
 
     <!-- HALLAZGOS -->
     <section id="hallazgos">
-      <div class="section-title">💡 Hallazgos Principales</div>
+      <div class="section-title"><img class="content-icon icon-inline" src="IMG/Utilidades/analytics.svg" alt=""> Hallazgos Principales</div>
       <div class="section-desc">Conclusiones derivadas del análisis del dataset completo 2010–2025.</div>
       <div class="hallazgos-grid">
         <div class="hallazgo-card">
-          <div class="hallazgo-ico">📉</div>
+          <img class="content-icon hallazgo-ico" src="IMG/Utilidades/analytics.svg" alt="">
           <div class="hallazgo-title">Pandemia como quiebre estructural</div>
           <div class="hallazgo-text">En 2020 la TD nacional saltó a 13.9% y la pobreza a 43.1%. La recuperación fue rápida pero no uniforme entre ciudades: Quibdó, Arauca y Buenaventura siguen con tasas de desempleo superiores al 23%.</div>
         </div>
         <div class="hallazgo-card">
-          <div class="hallazgo-ico">👩‍💼</div>
+          <img class="content-icon hallazgo-ico" src="IMG/Utilidades/gender.svg" alt="">
           <div class="hallazgo-title">Brecha de género persistente</div>
           <div class="hallazgo-text">La TGP femenina (≈54%) se mantiene consistentemente ~26 puntos por debajo de la masculina (≈80%). Las mujeres también tienen tasas de desocupación más altas en todos los años del período analizado.</div>
         </div>
         <div class="hallazgo-card">
-          <div class="hallazgo-ico">💰</div>
+          <img class="content-icon hallazgo-ico" src="IMG/Utilidades/file-chart.svg" alt="">
           <div class="hallazgo-title">Pobreza en mínimo histórico</div>
           <div class="hallazgo-text">La tasa de pobreza monetaria alcanzó su mínimo histórico en 2025 (28.0%), con 1.79 millones de personas saliendo de la pobreza en un solo año. La tendencia es descendente desde 2021.</div>
         </div>
         <div class="hallazgo-card">
-          <div class="hallazgo-ico">🏙️</div>
+          <img class="content-icon hallazgo-ico" src="IMG/Utilidades/search.svg" alt="">
           <div class="hallazgo-title">Heterogeneidad urbana marcada</div>
           <div class="hallazgo-text">Existe una diferencia de hasta 27 puntos porcentuales en la TD entre ciudades en 2025: Rionegro (4.8%) vs Arauca (20.5%). Las ciudades de frontera y del Pacífico muestran los mercados laborales más frágiles.</div>
         </div>
         <div class="hallazgo-card">
-          <div class="hallazgo-ico">📈</div>
+          <img class="content-icon hallazgo-ico" src="IMG/Utilidades/analytics.svg" alt="">
           <div class="hallazgo-title">SMLV: alza real desde 2022</div>
           <div class="hallazgo-text">Entre 2022 y 2023 el SMLV subió un 16%, el mayor incremento real en el período. En paralelo, la TO mejoró de 57.3% a 57.4%, sugiriendo que el alza no generó efectos adversos significativos sobre el empleo.</div>
         </div>
         <div class="hallazgo-card">
-          <div class="hallazgo-ico">🔧</div>
+          <img class="content-icon hallazgo-ico" src="IMG/Utilidades/team.svg" alt="">
           <div class="hallazgo-title">Cuenta propia como amortiguador</div>
           <div class="hallazgo-text">El trabajo por cuenta propia representa consistentemente el 37–40% de la ocupación en las 13 ciudades principales. Funciona como refugio durante las crisis, absorbiendo población que no logra empleo asalariado formal.</div>
         </div>
@@ -733,7 +502,7 @@ body.home-mode .header{display:none!important}
   </div>
 </div>
 
-<script>
+<!-- Legacy exploratory implementation moved to exploratorio.js.
 // ===== DATA =====
 const years = [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
 const tgp = [67.67,68.52,68.29,67.58,66.93,67.47,66.79,66.10,66.41,64.62,62.43,62.47,63.81,63.83,64.37,64.32];
@@ -991,7 +760,7 @@ window.addEventListener('scroll',()=>{
   sections.forEach(s=>{if(s.getBoundingClientRect().top<120)cur=s.id;});
   links.forEach(l=>{l.classList.toggle('active-link',l.getAttribute('href')==='#'+cur);});
 });
-</script>
+-->
 </main>
 
 
@@ -1020,25 +789,25 @@ window.addEventListener('scroll',()=>{
       </div>
       <div class="stats-grid" style="margin-bottom:3rem">
         <div class="stat-card navy">
-          <div class="stat-card-icon">👥</div>
+          <img class="content-icon stat-card-icon" src="IMG/Utilidades/gender.svg" alt="">
           <h3>62.6%</h3>
           <p>Tasa Global de Participación</p>
           <div class="stat-card-trend trend-up">↑ +0.8pp vs 2024</div>
         </div>
         <div class="stat-card pink">
-          <div class="stat-card-icon">💼</div>
+          <img class="content-icon stat-card-icon" src="IMG/Utilidades/analytics.svg" alt="">
           <h3>59.1%</h3>
           <p>Tasa de Ocupación</p>
           <div class="stat-card-trend trend-up">↑ +1.0pp vs 2024</div>
         </div>
         <div class="stat-card teal">
-          <div class="stat-card-icon">🔍</div>
+          <img class="content-icon stat-card-icon" src="IMG/Utilidades/search.svg" alt="">
           <h3>5.6%</h3>
           <p>Tasa de Desocupación</p>
           <div class="stat-card-trend trend-up">↓ -0.4pp vs 2024</div>
         </div>
         <div class="stat-card amber">
-          <div class="stat-card-icon">⏱️</div>
+          <img class="content-icon stat-card-icon" src="IMG/Utilidades/file-chart.svg" alt="">
           <h3>7.2%</h3>
           <p>Tasa de Subocupación</p>
           <div class="stat-card-trend trend-up">↓ -0.3pp vs 2024</div>
@@ -1219,7 +988,7 @@ window.addEventListener('scroll',()=>{
           </div>
           <div class="genre-story-column">
             <div class="findings-box">
-              <div class="findings-title">⚥ Lo que revelan 15 años de datos por género</div>
+              <div class="findings-title"><img class="content-icon icon-inline" src="IMG/Utilidades/gender.svg" alt=""> Lo que revelan 15 años de datos por género</div>
               <ul class="findings-list">
                 <li>La tasa de ocupación masculina supera a la femenina en <strong>todos y cada uno de los años</strong> del período. No hay excepción.</li>
                 <li>La pandemia de 2020 golpeó de forma desproporcionada a las mujeres: su TO cayó a <strong>38.07%</strong>, mientras la masculina se sostuvo en 63.79%.</li>
@@ -1306,19 +1075,19 @@ window.addEventListener('scroll',()=>{
       <!-- Impacto COVID -->
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:2rem">
         <div class="card card-accent-pink">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🦠 El golpe de 2020</h3>
+          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem"><img class="content-icon icon-inline" src="IMG/Utilidades/file-chart.svg" alt=""> El golpe de 2020</h3>
           <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
             La pandemia produjo la caída de empleo más severa que registra la serie. En un solo año la tasa de ocupación perdió <strong>10.8 puntos porcentuales</strong>, con efectos especialmente duros sobre las mujeres y los trabajadores del sector informal, que no contaron con redes de protección suficientes.
           </p>
         </div>
         <div class="card card-accent-teal">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">🔄 La recuperación 2021–2023</h3>
+          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem"><img class="content-icon icon-inline" src="IMG/Utilidades/analytics.svg" alt=""> La recuperación 2021–2023</h3>
           <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
             El rebote fue real pero gradual. Para 2022 se habían recuperado <strong>6.1 puntos porcentuales</strong> respecto al piso de 2020, aunque los máximos de 2015–2019 todavía no se habían vuelto a alcanzar. La velocidad de recuperación fue desigual entre géneros.
           </p>
         </div>
         <div class="card card-accent-amber">
-          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem">📊 Dónde estamos en 2025</h3>
+          <h3 style="font-size:1rem;color:var(--navy);margin-bottom:.75rem"><img class="content-icon icon-inline" src="IMG/Utilidades/powerbi.svg" alt=""> Dónde estamos en 2025</h3>
           <p style="font-size:.875rem;color:var(--text-secondary);line-height:1.7">
             Con una TO de <strong>59.1%</strong>, el mercado laboral colombiano se acerca a los niveles anteriores al COVID pero aún no los supera. La brecha de género y la subocupación siguen siendo los dos retos estructurales más importantes que quedan sin resolver.
           </p>
@@ -1326,7 +1095,7 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <div class="findings-box">
-        <div class="findings-title">📈 Patrones estructurales del mercado laboral colombiano</div>
+        <div class="findings-title"><img class="content-icon icon-inline" src="IMG/Utilidades/analytics.svg" alt=""> Patrones estructurales del mercado laboral colombiano</div>
         <ul class="findings-list">
           <li>Entre 2010 y 2019 la ocupación nacional creció de forma sostenida, acumulando <strong>+1.6 puntos porcentuales</strong> en casi una década de mejora continua.</li>
           <li>2020 marcó una ruptura sin precedentes en la serie: la TO nacional cayó 10.8 pp en un año, borrando buena parte de los avances anteriores.</li>
@@ -1361,22 +1130,22 @@ window.addEventListener('scroll',()=>{
       <div class="powerbi-header">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-bottom:2rem">
           <div class="card card-accent-navy">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">📊</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/powerbi.svg" alt="">
             <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Dashboards interactivos</h4>
             <p style="font-size:.8rem;color:var(--text-secondary)">Múltiples páginas con visualizaciones dinámicas y filtros</p>
           </div>
           <div class="card card-accent-pink">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">⚥</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/gender.svg" alt="">
             <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Análisis por género</h4>
             <p style="font-size:.8rem;color:var(--text-secondary)">Comparativas femenino/masculino con segmentadores</p>
           </div>
           <div class="card card-accent-teal">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">📅</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/analytics.svg" alt="">
             <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Serie temporal 2010–2025</h4>
             <p style="font-size:.8rem;color:var(--text-secondary)">Evolución mensual con drill-down por año y mes</p>
           </div>
           <div class="card card-accent-amber">
-            <div style="font-size:1.5rem;margin-bottom:.5rem">🔗</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/team.svg" alt="">
             <h4 style="color:var(--navy);font-size:.95rem;margin-bottom:.35rem">Datos DANE</h4>
             <p style="font-size:.8rem;color:var(--text-secondary)">Fuente oficial: Departamento Nacional de Estadística</p>
           </div>
@@ -1387,7 +1156,7 @@ window.addEventListener('scroll',()=>{
       <div class="powerbi-embed-wrapper">
         <div class="powerbi-toolbar">
           <div class="powerbi-toolbar-title">
-            <span>🟡</span>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/powerbi.svg" alt="">
             <span>TAD 12 · Mercado Laboral Colombia — Power BI Report</span>
           </div>
           <div class="powerbi-toolbar-actions">
@@ -1406,7 +1175,7 @@ window.addEventListener('scroll',()=>{
           <iframe
             id="pbiFrame"
             title="TAD 12 · Mercado Laboral Colombia"
-            src="https://app.powerbi.com/view?r=eyJrIjoiYWU1ZjRmNmQtNTA3NS00NjMwLWEyM2ItYjI1NDA3YmI4MmYzIiwidCI6IjA1MDdlNWNlLTBmOTUtNDlhYS1hYmRlLWM5MGRjZGVkYmQxMiIsImMiOjR9%22"
+            src="https://app.powerbi.com/view?r=eyJrIjoiYWU1ZjRmNmQtNTA3NS00NjMwLWEyM2ItYjI1NDA3YmI4MmYzIiwidCI6IjA1MDdlNWNlLTBmOTUtNDlhYS1hYmRlLWM5MGRjZGVkYmQxMiIsImMiOjR9"
             allowfullscreen
             onload="document.getElementById('pbiLoading').style.display='none'"
             onerror="showPbiError()"
@@ -1429,13 +1198,13 @@ window.addEventListener('scroll',()=>{
       <!-- Fallback: acceso directo -->
       <div id="pbiFallback" style="display:none;margin-top:1.5rem">
         <div class="warning-box">
-          <strong>⚠️ El reporte requiere autenticación de Microsoft.</strong>
+            <strong><img class="content-icon icon-inline" src="IMG/Utilidades/powerbi.svg" alt=""> El reporte requiere autenticación de Microsoft.</strong>
           Para acceder al dashboard completo, haz clic en el botón de abajo e inicia sesión con tu cuenta institucional.
         </div>
         <div style="text-align:center;margin-top:1.25rem">
           <a href="https://app.powerbi.com/links/C0e8ZxTaFQ?ctid=2bac32fd-d9a2-40d9-a272-3a35920f5607&pbi_source=linkShare"
              target="_blank" rel="noopener noreferrer" class="btn btn-navy" style="display:inline-flex">
-            🟡 Abrir reporte completo en Power BI
+            <img class="content-icon icon-inline" src="IMG/Utilidades/powerbi.svg" alt=""> Abrir reporte completo en Power BI
           </a>
         </div>
       </div>
@@ -1446,22 +1215,22 @@ window.addEventListener('scroll',()=>{
         <p class="section-subtitle" style="text-align:left">Páginas y dashboards disponibles en el reporte de Power BI</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:1.5rem">
           <div class="card card-accent-navy">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">📋</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/powerbi.svg" alt="">
             <h4 style="color:var(--navy);margin-bottom:.5rem">Resumen ejecutivo</h4>
             <p style="font-size:.875rem;color:var(--text-secondary)">KPIs principales, tendencia general y comparativa de género en una sola vista.</p>
           </div>
           <div class="card card-accent-pink">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">⚥</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/gender.svg" alt="">
             <h4 style="color:var(--navy);margin-bottom:.5rem">Análisis de género</h4>
             <p style="font-size:.875rem;color:var(--text-secondary)">Desagregación femenino/masculino con segmentadores interactivos por año y mes.</p>
           </div>
           <div class="card card-accent-teal">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">📈</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/analytics.svg" alt="">
             <h4 style="color:var(--navy);margin-bottom:.5rem">Serie temporal</h4>
             <p style="font-size:.875rem;color:var(--text-secondary)">Evolución mensual de todos los indicadores con drill-down y anotaciones de hitos.</p>
           </div>
           <div class="card card-accent-amber">
-            <div style="font-size:1.5rem;margin-bottom:.75rem">🗺️</div>
+            <img class="content-icon icon-inline" src="IMG/Utilidades/search.svg" alt="">
             <h4 style="color:var(--navy);margin-bottom:.5rem">Comparativa regional</h4>
             <p style="font-size:.875rem;color:var(--text-secondary)">Indicadores por región y departamento con mapa interactivo de Colombia.</p>
           </div>
@@ -1495,7 +1264,7 @@ window.addEventListener('scroll',()=>{
       </div>
       <div class="downloads-grid">
         <div class="download-card">
-          <div class="download-icon excel">📗</div>
+          <div class="download-icon excel"><img class="ui-icon" src="IMG/Utilidades/file-spreadsheet.svg" alt=""></div>
           <h3>Dataset completo (Excel)</h3>
              
           <p>Dataset original con las bases de datos consolidadas Período 2010–2025.</p>
@@ -1503,35 +1272,35 @@ window.addEventListener('scroll',()=>{
             <span class="badge badge-teal">Excel .xlsx</span>
             <span class="badge badge-pink">Mas 10.000 registros</span>
           </div>
-          <a href="Descargables/BASES DE DATOS UNIFICADAS.xlsx" class="btn btn-navy" style="margin-top:.5rem">⬇ Descargar</a>
+          <a href="Descargables/BASES DE DATOS UNIFICADAS.xlsx" class="btn btn-navy" style="margin-top:.5rem"><img class="ui-icon ui-icon-small" src="IMG/Utilidades/download.svg" alt=""> Descargar</a>
         </div>
         <div class="download-card">
-          <div class="download-icon csv">R</div>
+          <div class="download-icon csv"><img class="ui-icon" src="IMG/Utilidades/file-chart.svg" alt=""></div>
           <h3>Informe R</h3>
           <p>Analisis prioritariamente estadistico en el lenguaje de programacion R.</p>
           <div class="download-meta">
             <span class="badge badge-teal">R</span>
           </div>
-          <a href="https://rpubs.com/TR3Z1/1445631" class="btn btn-navy" style="margin-top:.5rem">↗ Ver informe</a>
+          <a href="https://rpubs.com/TR3Z1/1445631" class="btn btn-navy" style="margin-top:.5rem"><img class="ui-icon ui-icon-small" src="IMG/Utilidades/external.svg" alt=""> Ver informe</a>
         </div>
         <div class="download-card">
-          <div class="download-icon pdf">📕</div>
+          <div class="download-icon pdf"><img class="ui-icon" src="IMG/Utilidades/file-pdf.svg" alt=""></div>
           <h3>Reporte de análisis (PDF)</h3>
           <p>Documento completo con metodología, hallazgos, gráficos y conclusiones del análisis exploratorio y estadístico.</p>
           <div class="download-meta">
             <span class="badge badge-pink">PDF</span>
           </div>
-          <a href="Descargables/Proyecto_TAD12_Mercado_Laboral.pdf" class="btn btn-navy" style="margin-top:.5rem">⬇ Descargar</a>
+          <a href="Descargables/Proyecto_TAD12_Mercado_Laboral.pdf" class="btn btn-navy" style="margin-top:.5rem"><img class="ui-icon ui-icon-small" src="IMG/Utilidades/download.svg" alt=""> Descargar</a>
         </div>
         <div class="download-card">
-          <div class="download-icon excel">📊</div>
+          <div class="download-icon excel"><img class="ui-icon" src="IMG/Utilidades/file-chart.svg" alt=""></div>
           <h3>Dashboard Power BI (.pbix)</h3>
           <p>Archivo fuente del reporte Power BI para edición y personalización. Requiere Power BI Desktop.</p>
           <div class="download-meta">
             <span class="badge badge-amber">.pbix</span>
           </div>
           <a href="https://app.powerbi.com/view?r=eyJrIjoiYWU1ZjRmNmQtNTA3NS00NjMwLWEyM2ItYjI1NDA3YmI4MmYzIiwidCI6IjA1MDdlNWNlLTBmOTUtNDlhYS1hYmRlLWM5MGRjZGVkYmQxMiIsImMiOjR9"
-             target="_blank" rel="noopener noreferrer" class="btn btn-navy" style="margin-top:.5rem">↗ Ver en Power BI</a>
+             target="_blank" rel="noopener noreferrer" class="btn btn-navy" style="margin-top:.5rem"><img class="ui-icon ui-icon-small" src="IMG/Utilidades/external.svg" alt=""> Ver en Power BI</a>
         </div>
       </div>
 
@@ -1565,8 +1334,12 @@ window.addEventListener('scroll',()=>{
   <section class="section">
     <div class="container">
       <div class="team-showcase">
-        <div class="team-showcase-photo">
+        <div class="team-showcase-photo" data-title="Equipo TAD 12" data-role="Trabajo colaborativo" data-description="Equipo de aprendices y líderes técnicos que desarrolló el análisis del mercado laboral colombiano, desde la preparación de datos hasta las visualizaciones y el reporte final.">
           <img src="IMG/Utilidades/Grupal.jpeg" alt="Equipo TAD 12" />
+          <div class="team-showcase-caption">
+            <strong>Equipo TAD 12</strong>
+            <span>Trabajo colaborativo · Datos, análisis y visualización</span>
+          </div>
         </div>
         <div class="team-showcase-copy">
           <span class="about-kicker">Equipo y acompañamiento</span>
@@ -1575,6 +1348,12 @@ window.addEventListener('scroll',()=>{
             Este proyecto fue desarrollado con acompañamiento académico y trabajo colaborativo. Primero verás dos
             apartados para maestros, luego los dos grupos de trabajo que construyeron el análisis y las visualizaciones.
           </p>
+          <div class="team-showcase-meta">
+            <div><strong>2</strong><span>grupos de trabajo</span></div>
+            <div><strong>2</strong><span>líderes técnicos</span></div>
+            <div><strong>1</strong><span>proyecto común</span></div>
+          </div>
+          <button class="btn btn-navy team-showcase-action" type="button" onclick="openTeamGroup('grupo1')">Conocer los grupos</button>
         </div>
       </div>
 
@@ -1602,11 +1381,11 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <div class="team-tabs">
-        <button class="tab-btn tab-active" id="btn-grupo1" onclick="showGrupo('grupo1')">Grupo 1</button>
-        <button class="tab-btn" id="btn-grupo2" onclick="showGrupo('grupo2')">Grupo 2</button>
+        <button class="tab-btn tab-active" id="btn-grupo1" type="button" aria-selected="true" onclick="showGrupo('grupo1')"><span class="team-tab-number">01</span> Grupo 1</button>
+        <button class="tab-btn" id="btn-grupo2" type="button" aria-selected="false" onclick="showGrupo('grupo2')"><span class="team-tab-number">02</span> Grupo 2</button>
       </div>
 
-      <div id="grupo1-tab">
+      <div id="grupo1-tab" class="team-panel active">
         <div class="section-header" style="text-align:left">
           <h2 class="section-title">Grupo 1</h2>
           <p class="section-subtitle">Análisis de género, tendencias y reporte final</p>
@@ -1654,7 +1433,7 @@ window.addEventListener('scroll',()=>{
         </div>
       </div>
 
-      <div id="grupo2-tab" style="display:none">
+      <div id="grupo2-tab" class="team-panel">
         <div class="section-header" style="text-align:left">
           <h2 class="section-title">Grupo 2</h2>
           <p class="section-subtitle">Análisis de mercado social sobre indicadores economicos</p>
@@ -1675,9 +1454,7 @@ window.addEventListener('scroll',()=>{
             <p>Diseño de reportes y presentaciones</p>
             <span class="team-role">Designer</span>
           </div>
-          <div class="team-card">
-
-             <div class="team-card">
+           <div class="team-card">
             <div class="team-card-photo"><img src="IMG/Aprendices/Ben.jpeg" alt="Foto de Miembro 8" /></div>
         
             <h4>Benjamin Nezareth Altahona Rivera</h4>
@@ -1685,21 +1462,21 @@ window.addEventListener('scroll',()=>{
             <span class="team-role">BI developer</span>
           </div>
 
-            <div class="team-card">
+          <div class="team-card">
             <div class="team-card-photo"><img src="IMG/Aprendices/Duvan.jpeg" alt="Foto de Miembro 8" /></div>
             
             <h4>Duvan Felipe Julio Paez</h4>
             <p>Integración de datos y validación</p>
             <span class="team-role">Bi developer</span>
-          </div>
+           </div>
 
-             <div class="team-card">
+           <div class="team-card">
             <div class="team-card-photo"><img src="IMG/Aprendices/Franer.jpeg" alt="Foto de Miembro 8" /></div>
             
             <h4>Franer Xavier Palacio Fontalvo</h4>
             <p>Análisis estadístico y documentación</p>
             <span class="team-role">Analyst</span>
-          </div>   
+          </div>
         </div>
       </div>
 
@@ -1717,14 +1494,6 @@ window.addEventListener('scroll',()=>{
 
 <script src="asistente-tad12.js"></script>
 <script src="script.js"></script>
-
-<script>
-document.body.classList.add('home-mode');
-const oldNav=window.navigateTo;
-window.navigateTo=function(id){
- document.body.classList.remove('home-mode');
- if(oldNav) oldNav(id);
-}
-</script>
+<script src="exploratorio.js"></script>
 </body>
 </html>

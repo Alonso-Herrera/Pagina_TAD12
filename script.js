@@ -72,6 +72,9 @@ function navigateTo(pageKeyOrId) {
   updateNavActive(pageId);
   updateArrows();
   closeMobileMenu();
+  if (pageId === 'page-colaboradores') {
+    requestAnimationFrame(() => requestAnimationFrame(() => showGrupo(pendingTeamGroup || 'grupo1')));
+  }
 }
 
 function scrollToSection(sectionId) {
@@ -166,22 +169,96 @@ document.addEventListener('click', function (e) {
 // ============================================
 // EQUIPO
 // ============================================
+let pendingTeamGroup = null;
+
 function showGrupo(grupo) {
   const g1 = document.getElementById('grupo1-tab');
   const g2 = document.getElementById('grupo2-tab');
   const b1 = document.getElementById('btn-grupo1');
   const b2 = document.getElementById('btn-grupo2');
-  if (grupo === 'grupo1') {
-    if (g1) g1.style.display = 'block';
-    if (g2) g2.style.display = 'none';
-    if (b1) b1.classList.add('tab-active');
-    if (b2) b2.classList.remove('tab-active');
-  } else {
-    if (g1) g1.style.display = 'none';
-    if (g2) g2.style.display = 'block';
-    if (b1) b1.classList.remove('tab-active');
-    if (b2) b2.classList.add('tab-active');
+  const isGroupOne = grupo === 'grupo1';
+  if (!g1 || !g2 || !b1 || !b2) {
+    pendingTeamGroup = isGroupOne ? 'grupo1' : 'grupo2';
+    return;
   }
+  pendingTeamGroup = null;
+  if (g1) g1.classList.toggle('active', isGroupOne);
+  if (g2) g2.classList.toggle('active', !isGroupOne);
+  if (b1) {
+    b1.classList.toggle('tab-active', isGroupOne);
+    b1.setAttribute('aria-selected', String(isGroupOne));
+  }
+  if (b2) {
+    b2.classList.toggle('tab-active', !isGroupOne);
+    b2.setAttribute('aria-selected', String(!isGroupOne));
+  }
+  const tabs = document.querySelector('.team-tabs');
+  if (tabs) tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openTeamGroup(grupo) {
+  pendingTeamGroup = grupo === 'grupo2' ? 'grupo2' : 'grupo1';
+  navigateTo('page-colaboradores');
+}
+
+function initTeamCardZoom() {
+  const cards = document.querySelectorAll('.team-panel .team-card, .teacher-card, .team-showcase-photo');
+  if (!cards.length) return;
+
+  const modal = document.createElement('div');
+  modal.className = 'team-zoom-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-label', 'Vista ampliada del integrante');
+  modal.innerHTML = `
+    <div class="team-zoom-backdrop" data-team-zoom-close></div>
+    <div class="team-zoom-dialog">
+      <button class="team-zoom-close" type="button" aria-label="Cerrar vista ampliada" data-team-zoom-close>&times;</button>
+      <img class="team-zoom-image" alt="">
+      <div class="team-zoom-copy">
+        <h3 class="team-zoom-name"></h3>
+        <p class="team-zoom-role"></p>
+        <p class="team-zoom-description"></p>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  const image = modal.querySelector('.team-zoom-image');
+  const name = modal.querySelector('.team-zoom-name');
+  const role = modal.querySelector('.team-zoom-role');
+  const description = modal.querySelector('.team-zoom-description');
+  const close = () => {
+    modal.classList.remove('is-open');
+    document.body.classList.remove('team-zoom-open');
+  };
+
+  cards.forEach(card => {
+    const button = document.createElement('button');
+    button.className = 'team-zoom-trigger';
+    button.type = 'button';
+    const cardName = card.dataset.title || card.querySelector('h4, h3')?.textContent.trim() || card.querySelector('img')?.alt || 'integrante';
+    button.setAttribute('aria-label', 'Ampliar foto de ' + cardName);
+    button.innerHTML = '<span aria-hidden="true">+</span>';
+    button.addEventListener('click', () => {
+      const cardImage = card.querySelector('img');
+      image.src = cardImage?.src || '';
+      image.alt = cardImage?.alt || '';
+      name.textContent = card.dataset.title || card.querySelector('h4, h3')?.textContent.trim() || card.querySelector('img')?.alt || '';
+      role.textContent = card.dataset.role || card.querySelector('.team-role, .teacher-badge, .about-kicker')?.textContent.trim() || '';
+      description.textContent = card.dataset.description || card.querySelector('.teacher-card > p, .team-card > p, .team-showcase-copy .content-text')?.textContent.trim() || 'Información del integrante del proyecto TAD 12.';
+      modal.classList.add('is-open');
+      document.body.classList.add('team-zoom-open');
+      modal.querySelector('.team-zoom-close').focus();
+    });
+    card.appendChild(button);
+  });
+
+  modal.addEventListener('click', event => {
+    if (event.target.hasAttribute('data-team-zoom-close')) close();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
 }
 
 // ============================================
@@ -218,12 +295,13 @@ const chartDefaults = {
   plugins: {
     legend: {
       position: 'top',
-      labels: { font: { size: 12, weight: '600' }, padding: 14, usePointStyle: true, pointStyle: 'circle' }
+      align: 'start',
+      labels: { font: { size: 12, weight: '600' }, padding: 14, usePointStyle: true, pointStyle: 'circle', boxWidth: 8 }
     },
     tooltip: {
       backgroundColor: 'rgba(0,31,63,0.92)',
       titleFont: { size: 13, weight: '700' },
-      bodyFont: { size: 12 },
+      bodyFont: { size: 12, weight: '600' },
       padding: 12,
       cornerRadius: 8,
     }
@@ -231,11 +309,11 @@ const chartDefaults = {
   scales: {
     y: {
       grid: { color: 'rgba(0,0,0,0.04)' },
-      ticks: { font: { size: 11 }, callback: v => v + '%' },
+      ticks: { font: { size: 11, weight: '600' }, maxTicksLimit: 6, callback: v => v + '%' },
     },
     x: {
-      grid: { color: 'rgba(0,0,0,0.03)' },
-      ticks: { font: { size: 11 } }
+      grid: { display: false },
+      ticks: { font: { size: 11, weight: '600' }, maxTicksLimit: 8, autoSkip: true }
     }
   }
 };
@@ -248,12 +326,12 @@ function makeDataset(label, data, color, colorAlpha) {
     backgroundColor: colorAlpha,
     borderWidth: 2.5,
     tension: 0.4,
-    fill: true,
-    pointRadius: 4,
+    fill: false,
+    pointRadius: 2,
     pointBackgroundColor: color,
     pointBorderColor: COLORS.white,
     pointBorderWidth: 2,
-    pointHoverRadius: 7,
+    pointHoverRadius: 5,
   };
 }
 
@@ -515,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (menuToggle) menuToggle.addEventListener('click', toggleMobileMenu);
 
   // Sidebar links con scroll suave
-  document.querySelectorAll('.sidebar-link').forEach(link => {
+  document.querySelectorAll('.layout aside nav a').forEach(link => {
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
       if (href && href.startsWith('#') && href.length > 1) {
@@ -526,29 +604,30 @@ document.addEventListener('DOMContentLoaded', function () {
           const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
           window.scrollTo({ top, behavior: 'smooth' });
         }
-        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
+        document.querySelectorAll('.layout aside nav a').forEach(l => l.classList.remove('active-link'));
+        this.classList.add('active-link');
       }
     });
   });
 
   // Highlight sidebar al scroll
   window.addEventListener('scroll', function () {
-    const sections = document.querySelectorAll('[id]');
+    const sections = document.querySelectorAll('#page-exploratorio section[id]');
     let current = '';
     sections.forEach(sec => {
       if (window.pageYOffset >= sec.offsetTop - 130) {
         current = sec.getAttribute('id');
       }
     });
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    document.querySelectorAll('.layout aside nav a').forEach(link => {
+      link.classList.remove('active-link');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active-link');
     });
   });
 
   // Inicializar gráficos
   initAllCharts();
+  initTeamCardZoom();
   updateNavIndicator();
 });
 
@@ -565,6 +644,7 @@ window.navigateNext = navigateNext;
 window.toggleMobileMenu = toggleMobileMenu;
 window.scrollToSection = scrollToSection;
 window.showGrupo = showGrupo;
+window.openTeamGroup = openTeamGroup;
 window.filterChartByGender = filterChartByGender;
 window.filterTendencias = filterTendencias;
 window.showPbiError = showPbiError;
