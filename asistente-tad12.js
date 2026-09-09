@@ -7,7 +7,7 @@
  */
 
 const GROK_URL = '/api/grok';
-const GROK_MODEL = 'llama-3.3-70b-versatile';
+const GROK_MODEL = 'openai/gpt-oss-120b';
 
 const SYSTEM_PROMPT = `Eres un asistente experto integrado en la página web del proyecto TAD 12, un análisis integral del mercado laboral de Colombia 2010-2025.
 
@@ -307,11 +307,17 @@ async function send(text) {
             })
         });
         const data = await res.json();
-        const reply = data.choices?.[0]?.message?.content
-            || 'No pude obtener una respuesta. Intenta de nuevo.';
-        removeTyping();
-        addBot(reply);
-        history.push({ role: 'assistant', content: reply });
+        if (!res.ok || !data.choices) {
+            const apiError = data.error?.message || data.error || `Error ${res.status}`;
+            console.error('Error del asistente TAD 12:', apiError);
+            removeTyping();
+            addBot('No pude obtener una respuesta. (' + apiError + ')');
+        } else {
+            const reply = data.choices[0].message.content;
+            removeTyping();
+            addBot(reply);
+            history.push({ role: 'assistant', content: reply });
+        }
     } catch (err) {
         removeTyping();
         addBot('Error de conexión. Verifica el proxy de Netlify e intenta de nuevo.');
