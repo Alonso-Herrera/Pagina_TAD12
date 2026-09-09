@@ -47,7 +47,7 @@
         <a class="nav-link" data-page="colaboradores" href="#">Equipo</a>
         <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
       </nav>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">☰</button>
     </div>
     <nav class="nav-mobile" id="mobileNav" aria-label="Navegación móvil">
       <a class="nav-link-mobile active" data-page="inicio" href="#">Inicio</a>
@@ -95,8 +95,8 @@
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
-            <div class="hero-stat-value">576</div>
-            <div class="hero-stat-label">Registros totales</div>
+            <div class="hero-stat-value">13.877</div>
+            <div class="hero-stat-label">Registros consolidados</div>
           </div>
           <div class="hero-stat">
             <div class="hero-stat-value">15</div>
@@ -287,8 +287,8 @@
       <a href="#hallazgos"><span class="section-number">09</span><span>Lee los hallazgos<small>Conclusiones clave</small></span></a>
     </nav>
     <div class="quickstats">
-      <div class="qs-label">Total registros</div>
-      <div class="qs-val">576</div>
+      <div class="qs-label">Registros consolidados</div>
+      <div class="qs-val">13.877</div>
       <div class="qs-label">Período</div>
       <div class="qs-val">2010–2025</div>
       <div class="qs-label">Frecuencia</div>
@@ -1363,7 +1363,7 @@ window.addEventListener('scroll',()=>{
             <img src="IMG/Aprendices/Perfil.jpeg" alt="Foto del Maestro 1" />
           </div>
           <div class="teacher-card-head">
-            <span class="teacher-badge">Lider grupo 1</span>
+            <span class="teacher-badge">Alonso De Jesus Herrera Cantillo</span>
             <h3>Lider tecnico full stack</h3>
           </div>
           <p>Orientación metodológica, revisión de la estructura analítica y validación de los hallazgos del proyecto.</p>
@@ -1373,7 +1373,7 @@ window.addEventListener('scroll',()=>{
             <img src="IMG/Aprendices/Andrea.jpeg" alt="Foto del Maestro 2" />
           </div>
           <div class="teacher-card-head">
-            <span class="teacher-badge">Lider grupo 2</span>
+            <span class="teacher-badge">Andrea Cardenas</span>
             <h3>Lider tecnico documentación</h3>
           </div>
           <p>Supervisión del diseño web, orden visual de los apartados y coherencia entre narrativa, datos y gráficos.</p>
@@ -1381,8 +1381,8 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <div class="team-tabs">
-        <button class="tab-btn tab-active" id="btn-grupo1" type="button" aria-selected="true" onclick="showGrupo('grupo1')"><span class="team-tab-number">01</span> Grupo 1</button>
-        <button class="tab-btn" id="btn-grupo2" type="button" aria-selected="false" onclick="showGrupo('grupo2')"><span class="team-tab-number">02</span> Grupo 2</button>
+        <button class="tab-btn tab-active" id="btn-grupo1" type="button" aria-selected="true" onclick="showGrupo('grupo1')">Grupo 1</button>
+        <button class="tab-btn" id="btn-grupo2" type="button" aria-selected="false" onclick="showGrupo('grupo2')">Grupo 2</button>
       </div>
 
       <div id="grupo1-tab" class="team-panel active">
