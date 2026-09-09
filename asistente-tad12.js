@@ -7,7 +7,7 @@
  */
 
 const GROK_URL = '/api/grok';
-const GROK_MODEL = 'llama-3.3-70b-versatile';
+const GROK_MODEL = 'openai/gpt-oss-120b';
 
 const SYSTEM_PROMPT = `Eres un asistente experto integrado en la página web del proyecto TAD 12, un análisis integral del mercado laboral de Colombia 2010-2025.
 
