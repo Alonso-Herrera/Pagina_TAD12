@@ -13,8 +13,8 @@ const SYSTEM_PROMPT = `Eres un asistente experto integrado en la página web del
 
 CONTEXTO DEL PROYECTO:
 - Período: 2010-2025 (15 años, 180 meses de datos mensuales)
-- 576 registros desagregados por género (Femenino, Masculino, Total)
-- Dataset: 384 registros por género (19 columnas) + 192 registros totales
+- 13.877 registros de datos en las ocho hojas del Excel consolidado
+- Incluye series nacionales, género, ciudades, ocupación, SMLV, pobreza e ingresos
 
 INDICADORES CLAVE:
 - TGP (Tasa Global de Participación): proporción de la fuerza de trabajo respecto a la población en edad de trabajar.
